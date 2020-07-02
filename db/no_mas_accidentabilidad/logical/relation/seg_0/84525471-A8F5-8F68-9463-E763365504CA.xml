@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="employee_visits" directorySegmentName="seg_0" id="84525471-A8F5-8F68-9463-E763365504CA">
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="activities" directorySegmentName="seg_0" id="84525471-A8F5-8F68-9463-E763365504CA">
 <createdBy>crist</createdBy>
 <createdTime>2020-07-02 15:55:20 UTC</createdTime>
 <ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
@@ -8,12 +8,27 @@
 </engineerTo>
 <sourcePk>A7BE537A-F229-6DCA-B5F0-C4468D5AEDE4</sourcePk>
 <identifying>false</identifying>
-<optionalSource>true</optionalSource>
-<optionalTarget>false</optionalTarget>
+<optionalSource>false</optionalSource>
+<optionalTarget>true</optionalTarget>
 <sourceCardinality>1</sourceCardinality>
 <sourceEntity>E68420D6-B0EA-D9DD-9031-5E9B1C2D9E84</sourceEntity>
 <targetCardinalityString>*</targetCardinalityString>
 <targetEntity>967EE25C-F3F4-3BDF-50BE-6CFFD72FE2BB</targetEntity>
 <transferable>true</transferable>
 <deleteRule>CASCADE</deleteRule>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<attribute name="activities" id="BF1F6A44-C676-5B91-445C-D5A80CB03B25">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:48:02 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200</dataTypeSize>
+<ownDataTypeParameters>200,,</ownDataTypeParameters>
+</attribute>
+</attributes>
 </Relation>

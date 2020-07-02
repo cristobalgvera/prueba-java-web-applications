@@ -54,21 +54,6 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="visits_visit_id" id="143CD4D6-D5C7-DB88-DDDB-D798D0187D7C">
-<createdBy>crist</createdBy>
-<createdTime>2020-07-02 16:22:07 UTC</createdTime>
-<generatorID>A3641BFD-FA51-131B-D742-603E4410D6E6</generatorID>
-<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="ECA901B6-3FDA-5AC4-D0E0-18FB01D8A1E1" referredColumn="77A1D9E1-D310-ED9A-170A-B8EFA9C4C3A5"/>
-</associations>
-</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="F1A19C44-C9F6-E846-EC13-23A6EDCD5372" name="summaries_PK">
@@ -81,28 +66,6 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="DBC1F6E6-FB29-F77E-35DF-DA82E67DFF8E"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="288E25D6-62A7-431E-B4B6-B3E125310859" name="summaries__IDX">
-<createdBy>crist</createdBy>
-<createdTime>2020-07-02 16:22:08 UTC</createdTime>
-<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
-<indexState>Unique Plain Index</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<relationGeneratorID>AE886E64-D6E4-D778-B6EC-EC03A940F356</relationGeneratorID>
-<indexColumnUsage>
-<colUsage columnID="143CD4D6-D5C7-DB88-DDDB-D798D0187D7C"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="AAB65454-E1CB-70A8-0AC9-284F4A4FE1D8" name="summaries_visits_FK">
-<createdBy>crist</createdBy>
-<createdTime>2020-07-02 16:22:08 UTC</createdTime>
-<generatorID>AE886E64-D6E4-D778-B6EC-EC03A940F356</generatorID>
-<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="143CD4D6-D5C7-DB88-DDDB-D798D0187D7C"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

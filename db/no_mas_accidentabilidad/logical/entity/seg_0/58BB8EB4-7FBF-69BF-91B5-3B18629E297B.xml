@@ -65,28 +65,15 @@
 <logicalDatatype>LOGDT007</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="visit_id" id="A3641BFD-FA51-131B-D742-603E4410D6E6">
-<createdBy>crist</createdBy>
-<createdTime>2020-07-02 15:59:02 UTC</createdTime>
-<generatorID>AE886E64-D6E4-D778-B6EC-EC03A940F356</generatorID>
-<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
-<engineerTo>
-<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
-</engineerTo>
-<referedAttribute>3D6B9BD8-EA5E-4967-38FE-FC5314BB6D50</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="58A21B4A-9FC7-9EC1-DED4-13C8B05A691F" name="summaries PK">
 <createdBy>crist</createdBy>
 <createdTime>2020-07-02 15:50:42 UTC</createdTime>
 <ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="false"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
