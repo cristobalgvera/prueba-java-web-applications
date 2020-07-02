@@ -1,4 +1,7 @@
 # Prueba Java Web Applications
 
 ### Integrantes:
-- Hola
+- Soledad Castro.
+- Skandar Soler.
+- César Bertuline.
+- Cristóbal Gajardo.
