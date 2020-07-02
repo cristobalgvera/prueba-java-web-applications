@@ -1,5 +1,5 @@
 -- Generado por Oracle SQL Developer Data Modeler 19.4.0.350.1424
---   en:        2020-07-02 13:20:11 CLT
+--   en:        2020-07-02 13:27:33 CLT
 --   sitio:      Oracle Database 11g
 --   tipo:      Oracle Database 11g
 
@@ -105,6 +105,62 @@ ALTER TABLE visits
     ADD CONSTRAINT visits_summaries_fk FOREIGN KEY ( summaries_summary_id )
         REFERENCES summaries ( summary_id )
             ON DELETE CASCADE;
+            
+-- Sequences and triggers
+
+CREATE SEQUENCE customers_id_seq START WITH 1 INCREMENT BY 1;
+
+CREATE TRIGGER customers_id_tri
+BEFORE INSERT ON customers
+FOR EACH ROW
+BEGIN
+SELECT customers_id_seq.NEXTVAL INTO :NEW.customer_id FROM DUAL;
+END;
+
+CREATE SEQUENCE employees_id_seq START WITH 1 INCREMENT BY 1;
+
+CREATE TRIGGER employees_id_tri
+BEFORE INSERT ON employees
+FOR EACH ROW
+BEGIN
+SELECT employees_id_seq.NEXTVAL INTO :NEW.employee_id FROM DUAL;
+END;
+
+CREATE SEQUENCE visits_id_seq START WITH 1 INCREMENT BY 1;
+
+CREATE TRIGGER visits_id_tri
+BEFORE INSERT ON visits
+FOR EACH ROW
+BEGIN
+SELECT visits_id_seq.NEXTVAL INTO :NEW.visit_id FROM DUAL;
+END;
+
+CREATE SEQUENCE addresses_id_seq START WITH 1 INCREMENT BY 1;
+
+CREATE TRIGGER addresses_id_tri
+BEFORE INSERT ON addresses
+FOR EACH ROW
+BEGIN
+SELECT addresses_id_seq.NEXTVAL INTO :NEW.address_id FROM DUAL;
+END;
+
+CREATE SEQUENCE payments_id_seq START WITH 1 INCREMENT BY 1;
+
+CREATE TRIGGER payments_id_tri
+BEFORE INSERT ON payments
+FOR EACH ROW
+BEGIN
+SELECT payments_id_seq.NEXTVAL INTO :NEW.payment_id FROM DUAL;
+END;
+
+CREATE SEQUENCE summaries_id_seq START WITH 1 INCREMENT BY 1;
+
+CREATE TRIGGER summaries_id_tri
+BEFORE INSERT ON summaries
+FOR EACH ROW
+BEGIN
+SELECT summaries_id_seq.NEXTVAL INTO :NEW.summary_id FROM DUAL;
+END;
 
 
 
