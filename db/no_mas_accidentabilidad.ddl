@@ -1,5 +1,5 @@
 -- Generado por Oracle SQL Developer Data Modeler 19.4.0.350.1424
---   en:        2020-07-02 13:09:00 CLT
+--   en:        2020-07-02 13:20:11 CLT
 --   sitio:      Oracle Database 11g
 --   tipo:      Oracle Database 11g
 
@@ -18,21 +18,23 @@ CREATE TABLE addresses (
 ALTER TABLE addresses ADD CONSTRAINT addresses_pk PRIMARY KEY ( address_id );
 
 CREATE TABLE customers (
-    customer_id  INTEGER NOT NULL,
-    name         VARCHAR2(20),
-    last_name    VARCHAR2(30),
-    email        VARCHAR2(35) NOT NULL,
-    password     VARCHAR2(20) NOT NULL
+    customer_id   INTEGER NOT NULL,
+    name          VARCHAR2(20),
+    last_name     VARCHAR2(30),
+    email         VARCHAR2(35) NOT NULL,
+    password      VARCHAR2(20) NOT NULL,
+    phone_number  VARCHAR2(15) NOT NULL
 );
 
 ALTER TABLE customers ADD CONSTRAINT customers_pk PRIMARY KEY ( customer_id );
 
 CREATE TABLE employees (
-    employee_id  INTEGER NOT NULL,
-    name         VARCHAR2(20),
-    last_name    VARCHAR2(30),
-    email        VARCHAR2(35) NOT NULL,
-    password     VARCHAR2(20) NOT NULL
+    employee_id   INTEGER NOT NULL,
+    name          VARCHAR2(20),
+    last_name     VARCHAR2(30),
+    email         VARCHAR2(35) NOT NULL,
+    password      VARCHAR2(20) NOT NULL,
+    phone_number  VARCHAR2(15) NOT NULL
 );
 
 ALTER TABLE employees ADD CONSTRAINT employees_pk PRIMARY KEY ( employee_id );

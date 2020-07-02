@@ -69,6 +69,18 @@
 <ownDataTypeParameters>20,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="phone_number" id="FCDF9045-1F90-C207-35CD-EE998EB6E9B5">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 17:16:05 UTC</createdTime>
+<generatorID>C144FF74-1BC8-D8C1-0C98-B06330AC9F1F</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>15</dataTypeSize>
+<ownDataTypeParameters>15,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="B39451F9-9819-BFAA-7C70-66354FBB232B" name="employees_PK">
