@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="customer_visits" directorySegmentName="seg_0" id="D1D1DFC0-3C72-3C02-19EB-B3FDED1AC970">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 15:54:01 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<sourcePk>7291BDEE-132D-F4A4-9DB3-0C9E1553A60F</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>6F1E91DC-6EAD-F3A2-81A0-7206044EEA7E</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>967EE25C-F3F4-3BDF-50BE-6CFFD72FE2BB</targetEntity>
+<transferable>true</transferable>
+<deleteRule>CASCADE</deleteRule>
+</Relation>

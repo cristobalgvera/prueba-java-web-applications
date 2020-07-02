@@ -1,0 +1,87 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E53E5F93-FE54-F169-9F43-F1151EDC9178" name="employees">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>E68420D6-B0EA-D9DD-9031-5E9B1C2D9E84</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="employee_id" id="C54F4BAF-B78A-9AFD-9322-03CE04458DDA">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>75DEA825-7642-FB65-1DA0-30B8AFD42450</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="name" id="120BD928-0845-0322-EB96-AAF495C49A9D">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>67C9AC92-EEDB-60D6-4CC1-A268A657156D</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="last_name" id="468FAB22-3F33-7B95-E1EF-7254139AE496">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>B9F4F8AD-5195-0DB5-69C1-DB131CEB4C71</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="email" id="C298FD54-AD30-E25F-12D9-19A7B7C93932">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>07261445-D2AE-924E-4BF8-65DB75AAA503</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>35</dataTypeSize>
+<ownDataTypeParameters>35,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="password" id="EB4776C7-21E8-AF45-ABCD-772CF4A64C4B">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>E75DEC8A-C2AC-E1FD-EF2D-5DC7F3576B90</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B39451F9-9819-BFAA-7C70-66354FBB232B" name="employees_PK">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>A7BE537A-F229-6DCA-B5F0-C4468D5AEDE4</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C54F4BAF-B78A-9AFD-9322-03CE04458DDA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
