@@ -1,4 +1,4 @@
 package control.actor;
 
-public class Client {
+public class Customer {
 }
