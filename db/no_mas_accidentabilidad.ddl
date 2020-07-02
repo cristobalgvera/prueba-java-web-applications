@@ -1,5 +1,5 @@
 -- Generado por Oracle SQL Developer Data Modeler 19.4.0.350.1424
---   en:        2020-07-02 12:31:37 CLT
+--   en:        2020-07-02 13:09:00 CLT
 --   sitio:      Oracle Database 11g
 --   tipo:      Oracle Database 11g
 
@@ -48,17 +48,11 @@ CREATE TABLE payments (
 ALTER TABLE payments ADD CONSTRAINT payments_pk PRIMARY KEY ( payment_id );
 
 CREATE TABLE summaries (
-    summary_id       INTEGER NOT NULL,
-    description      VARCHAR2(200),
-    rating           INTEGER NOT NULL,
-    "date"           DATE NOT NULL,
-    visits_visit_id  INTEGER NOT NULL
+    summary_id   INTEGER NOT NULL,
+    description  VARCHAR2(200),
+    rating       INTEGER NOT NULL,
+    "date"       DATE NOT NULL
 );
-
-CREATE UNIQUE INDEX summaries__idx ON
-    summaries (
-        visits_visit_id
-    ASC );
 
 ALTER TABLE summaries ADD CONSTRAINT summaries_pk PRIMARY KEY ( summary_id );
 
@@ -66,8 +60,22 @@ CREATE TABLE visits (
     visit_id               INTEGER NOT NULL,
     ready                  CHAR(1) NOT NULL,
     customers_customer_id  INTEGER NOT NULL,
-    employees_employee_id  INTEGER NOT NULL
+    "date"                 DATE NOT NULL,
+    employees_employee_id  INTEGER,
+    activities             VARCHAR2(200),
+    summaries_summary_id   INTEGER NOT NULL
 );
+
+ALTER TABLE visits
+    ADD CHECK ( ( employees_employee_id IS NULL
+                  AND activities IS NULL )
+                OR ( employees_employee_id IS NOT NULL
+                     AND activities IS NOT NULL ) );
+
+CREATE UNIQUE INDEX visits__idx ON
+    visits (
+        summaries_summary_id
+    ASC );
 
 ALTER TABLE visits ADD CONSTRAINT visits_pk PRIMARY KEY ( visit_id );
 
@@ -81,11 +89,6 @@ ALTER TABLE payments
         REFERENCES customers ( customer_id )
             ON DELETE CASCADE;
 
-ALTER TABLE summaries
-    ADD CONSTRAINT summaries_visits_fk FOREIGN KEY ( visits_visit_id )
-        REFERENCES visits ( visit_id )
-            ON DELETE CASCADE;
-
 ALTER TABLE visits
     ADD CONSTRAINT visits_customers_fk FOREIGN KEY ( customers_customer_id )
         REFERENCES customers ( customer_id )
@@ -96,13 +99,18 @@ ALTER TABLE visits
         REFERENCES employees ( employee_id )
             ON DELETE CASCADE;
 
+ALTER TABLE visits
+    ADD CONSTRAINT visits_summaries_fk FOREIGN KEY ( summaries_summary_id )
+        REFERENCES summaries ( summary_id )
+            ON DELETE CASCADE;
+
 
 
 -- Informe de Resumen de Oracle SQL Developer Data Modeler: 
 -- 
 -- CREATE TABLE                             6
 -- CREATE INDEX                             1
--- ALTER TABLE                             11
+-- ALTER TABLE                             12
 -- CREATE VIEW                              0
 -- ALTER VIEW                               0
 -- CREATE PACKAGE                           0
