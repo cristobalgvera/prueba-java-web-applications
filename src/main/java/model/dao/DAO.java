@@ -19,9 +19,11 @@ public abstract class DAO {
 
     public abstract Object read(int id);
 
-    public abstract void update();
+    public abstract Object exists(String email, String password);
 
-    public abstract void delete();
+    public abstract Object update();
+
+    public abstract void delete(int id);
 
     protected void closeConnection() {
         try {
