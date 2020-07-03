@@ -1,0 +1,113 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="E68420D6-B0EA-D9DD-9031-5E9B1C2D9E84" name="employees">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 15:34:41 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="employee_id" id="75DEA825-7642-FB65-1DA0-30B8AFD42450">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 15:34:49 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="name" id="67C9AC92-EEDB-60D6-4CC1-A268A657156D">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 15:35:04 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="last_name" id="B9F4F8AD-5195-0DB5-69C1-DB131CEB4C71">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 15:35:17 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="email" id="07261445-D2AE-924E-4BF8-65DB75AAA503">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 15:35:36 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>35</dataTypeSize>
+<ownDataTypeParameters>35,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="password" id="E75DEC8A-C2AC-E1FD-EF2D-5DC7F3576B90">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 15:35:50 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="phone_number" id="C144FF74-1BC8-D8C1-0C98-B06330AC9F1F">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 17:15:46 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>15</dataTypeSize>
+<ownDataTypeParameters>15,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="A7BE537A-F229-6DCA-B5F0-C4468D5AEDE4" name="employees PK">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 15:35:02 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>75DEA825-7642-FB65-1DA0-30B8AFD42450</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

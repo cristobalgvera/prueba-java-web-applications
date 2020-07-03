@@ -1,0 +1,114 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="967EE25C-F3F4-3BDF-50BE-6CFFD72FE2BB" name="visits">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 15:46:07 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="visit_id" id="3D6B9BD8-EA5E-4967-38FE-FC5314BB6D50">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 15:48:00 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ready" id="843968EB-5E9D-2044-8917-8B6121F13A88">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 15:46:25 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="customer_id" id="B6ABB5CB-3C71-C3AB-E2A3-2887B9F8F941">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 15:54:01 UTC</createdTime>
+<generatorID>D1D1DFC0-3C72-3C02-19EB-B3FDED1AC970</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<referedAttribute>2E55414B-029A-22EC-512B-5D0D00C99758</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="date" id="623A05A5-E5E1-B6FB-8798-10219AFB47BC">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:41:00 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="employee_id" id="75489C41-4DBE-667F-433A-AAA36AAD15A9">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:58:46 UTC</createdTime>
+<generatorID>84525471-A8F5-8F68-9463-E763365504CA</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>75DEA825-7642-FB65-1DA0-30B8AFD42450</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="summary_id" id="81AE44EA-0DE6-A3DA-279B-3BD4BC267140">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 17:01:38 UTC</createdTime>
+<generatorID>AE886E64-D6E4-D778-B6EC-EC03A940F356</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<referedAttribute>905AED3A-0719-B2EB-3491-4E4B8FA5B26B</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="E5277EFE-BB47-26A7-CCBD-AF6B033D538F" name="visits PK">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 15:50:04 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>3D6B9BD8-EA5E-4967-38FE-FC5314BB6D50</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
