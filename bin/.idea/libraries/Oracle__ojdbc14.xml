@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Oracle: ojdbc14">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/.idea/libraries/ojdbc14.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
