@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="BD1A3962-7E2B-A7F9-E6A6-C0A860EEB18E" name="customers">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>6F1E91DC-6EAD-F3A2-81A0-7206044EEA7E</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="customer_id" id="E5FB4881-29CC-9C4B-DA77-88AD60F0BA84">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>2E55414B-029A-22EC-512B-5D0D00C99758</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="name" id="939E01E8-2BAD-9CB6-5513-35116684A4B7">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>DEB36D70-30B5-E176-C957-2BBAAE93EDED</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="last_name" id="0FC45720-3D0B-B928-2D9D-328D4D31C3AA">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>A4BC9C1D-8C30-C5CF-1D66-D382D0951511</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="email" id="0BD1A780-04EC-65CF-19C2-44255B7F67C2">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>5F04995F-F9E3-DCAB-9B04-E54E04B7E86D</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>35</dataTypeSize>
+<ownDataTypeParameters>35,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="password" id="F5D59A67-09F2-F77B-9BA3-6C183E62B60C">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>B720D036-C76D-9904-8149-38F1A2FC2665</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="phone_number" id="EDF5F348-D734-15A0-D913-77D46A1F822F">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 17:16:05 UTC</createdTime>
+<generatorID>8452879F-3D10-96EC-5E2B-8A05D55FB00D</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>15</dataTypeSize>
+<ownDataTypeParameters>15,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="DF5F50F9-C2C4-ED94-D363-E155989872B3" name="customers_PK">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>7291BDEE-132D-F4A4-9DB3-0C9E1553A60F</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E5FB4881-29CC-9C4B-DA77-88AD60F0BA84"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

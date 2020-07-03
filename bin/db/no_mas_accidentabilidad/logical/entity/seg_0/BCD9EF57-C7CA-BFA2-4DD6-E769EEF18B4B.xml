@@ -1,0 +1,125 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="BCD9EF57-C7CA-BFA2-4DD6-E769EEF18B4B" name="addresses">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:00:38 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="address_id" id="CE3C9E9C-97FD-86CD-EBBD-D1F3BD569274">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:00:52 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="country" id="6DAD3B19-9A5F-D9E3-364B-FA306195F287">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:01:05 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="city" id="8FEC3721-1BD6-4883-4606-54FA6910C35C">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:01:57 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<ownDataTypeParameters>40,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="street" id="6041DF61-DD30-6E83-A7C4-E4D6E83768F9">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:02:09 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="number" id="0F7CB722-48C5-4FAF-285D-67B1E217FF94">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:02:23 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="block" id="01E7CD4B-07ED-FFE8-C736-43E7A244AA23">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:08:12 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>3</dataTypeSize>
+<ownDataTypeParameters>3,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="customer_id" id="5A8435C6-BB07-1C1C-29CE-02765315434D">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:04:10 UTC</createdTime>
+<generatorID>5E0E2DB9-37DB-40F0-5805-CA21410B1892</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="true"/>
+</engineerTo>
+<referedAttribute>2E55414B-029A-22EC-512B-5D0D00C99758</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="043C201F-DEA5-B91B-5648-5FE2BF4AB037" name="customers_addresses PK">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:01:03 UTC</createdTime>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="6E61453D-CA0B-CA5B-4D9D-6758532D2616" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>CE3C9E9C-97FD-86CD-EBBD-D1F3BD569274</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

@@ -1,0 +1,72 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4E80CECD-8110-BC38-2B9C-5EE4A626C219" name="summaries">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>58BB8EB4-7FBF-69BF-91B5-3B18629E297B</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="summary_id" id="DBC1F6E6-FB29-F77E-35DF-DA82E67DFF8E">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>905AED3A-0719-B2EB-3491-4E4B8FA5B26B</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="description" id="AF779EBE-7CB7-D30C-BF19-3F941C9B2569">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>D047B965-0F29-26F1-B920-B4C49665FDE3</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200</dataTypeSize>
+<ownDataTypeParameters>200,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="rating" id="449C03A3-7B96-062A-368E-5F92B8945DD1">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>173287CC-5AED-B6D4-B6D3-860E5D39FF58</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="date" id="6666AD78-807B-4662-C598-4C389DE25456">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>85F187AF-C130-3472-E900-79A001DDB627</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="F1A19C44-C9F6-E846-EC13-23A6EDCD5372" name="summaries_PK">
+<createdBy>crist</createdBy>
+<createdTime>2020-07-02 16:22:07 UTC</createdTime>
+<generatorID>58A21B4A-9FC7-9EC1-DED4-13C8B05A691F</generatorID>
+<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DBC1F6E6-FB29-F77E-35DF-DA82E67DFF8E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
