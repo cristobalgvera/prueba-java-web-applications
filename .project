@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< Upstream, based on branch 'master' of https://github.com/cristobalgvera/prueba-java-web-applications.git
 	<name>prueba-java-web-applications2</name>
+=======
+	<name>prueba-java-web-applications</name>
+>>>>>>> bfc6c70 Modificaciones previas Servlets
 	<comment></comment>
 	<projects>
 	</projects>
