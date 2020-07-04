@@ -1,5 +1,7 @@
 package control.brain;
 
+import model.dao.DAO;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,21 +16,21 @@ public class Validate extends HttpServlet {
 		
 		String mail;
 		String pass;
-		DAO dao = new DAO();
-		
-		mail = request.getParameter(namemail);
-		pass = request.getParameter(namepass);
-		
-		user u = new user(mail, pass);
-		user newUser = dao.exists(u);
-		
-		HttpSession session = request.getSession();
-		if (newUser.errorExist()) {
-			request.getRequestDispatcher("Error").forward(request, response);
-		} else {
-			session.setAttribute("user", newUser);
-			request.getRequestDispatcher("Menu").forward(request, response);
-		}
+//		DAO dao = new DAO();
+//
+//		mail = request.getParameter(namemail);
+//		pass = request.getParameter(namepass);
+//
+//		user u = new user(mail, pass);
+//		user newUser = dao.exists(u);
+//
+//		HttpSession session = request.getSession();
+//		if (newUser.errorExist()) {
+//			request.getRequestDispatcher("Error").forward(request, response);
+//		} else {
+//			session.setAttribute("user", newUser);
+//			request.getRequestDispatcher("Menu").forward(request, response);
+//		}
 		
 	}
 	private static final long serialVersionUID = 1L;

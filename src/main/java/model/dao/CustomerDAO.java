@@ -1,6 +1,6 @@
 package model.dao;
 
-import control.actor.Customer;
+import control.entities.Customer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,15 +26,20 @@ public class CustomerDAO extends DAO {
     }
 
     @Override
-    public void create() {
+    public Object create() throws SQLException {
         sql = "INSERT INTO CUSTOMERS (NAME, LAST_NAME, EMAIL, PASSWORD, PHONE_NUMBER) VALUES (?,?,?,?,?)";
+        ResultSet resultSet = null;
         try {
             setStatement();
             preparedStatement.executeUpdate();
+            preparedStatement.close();
+            sql = "SELECT MAX(CUSTOMER_ID) FROM CUSTOMERS";
+            resultSet = connection.getConnection().prepareStatement(sql).executeQuery();
+            resultSet.next();
         } catch (SQLException e) {
             System.out.println("Error while creating: " + e.getMessage());
         } finally {
-            closeConnection();
+            return read(resultSet.getInt(1));
         }
     }
 
@@ -48,7 +53,7 @@ public class CustomerDAO extends DAO {
     }
 
     @Override
-    public List<Customer> read() throws SQLException {
+    public List<Customer> readAll() throws SQLException {
         sql = "SELECT * FROM CUSTOMERS";
         try (Statement statement = connection.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
                 ResultSet.CONCUR_UPDATABLE); ResultSet resultSet = statement.executeQuery(sql)) {
@@ -60,8 +65,8 @@ public class CustomerDAO extends DAO {
             System.out.println("Error while reading: " + e.getMessage());
         } finally {
             connection.getConnection().close();
+            return customers;
         }
-        return customers;
     }
 
     @Override
@@ -77,26 +82,8 @@ public class CustomerDAO extends DAO {
             System.out.println("Error while reading: " + e.getMessage());
         } finally {
             closeConnection();
+            return !customers.isEmpty() ? customers.get(0) : -1;
         }
-        return !customers.isEmpty() ? customers.get(0) : -1;
-    }
-
-    @Override
-    public Object exists(String email, String password) {
-        sql = "SELECT * FROM CUSTOMERS WHERE EMAIL = ? AND PASSWORD = ?";
-        try {
-            preparedStatement = connection.getConnection().prepareStatement(sql);
-            preparedStatement.setString(1, email);
-            preparedStatement.setString(2, password);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            sqlData(resultSet.getInt(1), resultSet);
-        } catch (SQLException e) {
-            System.out.println("Error while testing existence: " + e.getMessage());
-        } finally {
-            closeConnection();
-        }
-        return !customers.isEmpty() ? customers.get(0) : -1;
     }
 
     private void sqlData(int id, ResultSet resultSet) throws SQLException {
@@ -109,17 +96,36 @@ public class CustomerDAO extends DAO {
     }
 
     @Override
+    public Object exists(String email, String password) throws SQLException {
+        sql = "SELECT * FROM CUSTOMERS WHERE EMAIL = ? AND PASSWORD = ?";
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+        } catch (SQLException e) {
+            System.out.println("Error while testing existence: " + e.getMessage());
+        } finally {
+            return read(resultSet.getInt(1));
+        }
+    }
+
+    @Override
     public Object update() {
-        sql = "UPDATE CUSTOMERS SET NAME = ?,LAST_NAME = ?, EMAIL = ?, PASSWORD = ?, PHONE_NUMBER = ? WHERE CUSTOMER_ID = ?";
-        ResultSet resultSet;
+        sql = "UPDATE CUSTOMERS SET NAME = ?,LAST_NAME = ?, EMAIL = ?, " +
+                "PASSWORD = ?, PHONE_NUMBER = ? WHERE CUSTOMER_ID = ?";
         try {
             setStatement();
             preparedStatement.setInt(6, customer.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error while trying to update a registry: " + e.getMessage());
+        } finally {
+            return read(customer.getId());
         }
-        return read(customer.getId());
+
     }
 
     @Override
@@ -136,10 +142,12 @@ public class CustomerDAO extends DAO {
         }
     }
 
-    public Object visitRequest(String activities) {
+    public Object requestVisit(String activities, int price) throws SQLException {
+        // TODO Return VISIT_ID from DB
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String formattedDate = formatter.format(date);
+        ResultSet resultSet = null;
         try {
             int summary_id = createSummary(formattedDate);
             sql = "INSERT INTO VISITS (READY, CUSTOMERS_CUSTOMER_ID, 'date', EMPLOYEES_EMPLOYEE_ID, ACTIVITIES, " +
@@ -152,38 +160,48 @@ public class CustomerDAO extends DAO {
             } catch (SQLException e) {
                 System.out.println("Error while selecting employee to visit, probably you doesn't have employees: " +
                         e.getMessage());
+                // TODO Create a generic employee to assign tasks on lack of employees case
             }
             preparedStatement.setString(4, activities);
             preparedStatement.setInt(5, summary_id);
             try {
-                preparedStatement.setInt(6, assignPrice(formattedDate));
+                preparedStatement.setInt(6, assignPrice(formattedDate, price));
             } catch (SQLException e) {
                 System.out.println("Error while assigning price: " + e.getMessage());
             }
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
+            sql = "SELECT MAX(VISIT_ID) FROM VISITS";
+            resultSet = connection.getConnection().prepareStatement(sql).executeQuery();
+            resultSet.next();
         } catch (SQLException e) {
             System.out.println("Error requesting visit: " + e.getMessage());
+        } finally {
+            return resultSet.getInt(1);
         }
-        return null;
     }
 
-    private int assignPrice(String date) throws SQLException {
+    private int assignPrice(String date, int price) throws SQLException {
         String sql1 = "INSERT INTO PAYMENT ('date', AMOUNT, READY) " +
                 "VALUES (TO_DATE(?, 'dd/mm/yyyy hh24:mi:ss'), ?, 0);";
-        ResultSet resultSet;
-        PreparedStatement preparedStatement1;
+        ResultSet resultSet = null;
         try {
-            preparedStatement1 = connection.getConnection().prepareStatement(sql1);
+            PreparedStatement preparedStatement1 = connection.getConnection().prepareStatement(sql1);
             preparedStatement1.setString(1, date);
-            preparedStatement1.setInt(2, (int) (Math.random() * 500000) + 50000);
-            resultSet = preparedStatement1.executeQuery();
+            preparedStatement1.setInt(2, price);
+            preparedStatement1.executeUpdate();
+            preparedStatement1.close();
+            sql1 = "SELECT MAX(PAYMENT_ID) FROM PAYMENTS";
+            resultSet = connection.getConnection().prepareStatement(sql1).executeQuery();
+            resultSet.next();
         } catch (SQLException e) {
             return -1;
+        } finally {
+            return resultSet != null ? resultSet.getInt(1) : -1;
         }
-        return resultSet.getInt(1);
     }
 
     private int selectEmployee() throws SQLException {
+        // TODO Improve this selection code - can be giving it two options: default selection or defined selection
         String sql1 = "SELECT EMPLOYEE_ID, COUNT(EMPLOYEE_ID) " +
                 "FROM EMPLOYEES FULL JOIN VISITS V on EMPLOYEES.EMPLOYEE_ID = V.EMPLOYEES_EMPLOYEE_ID " +
                 "GROUP BY EMPLOYEE_ID " +
@@ -216,10 +234,14 @@ public class CustomerDAO extends DAO {
         try {
             preparedStatement = connection.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, date);
-            resultSet = preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            sql = "SELECT MAX(SUMMARY_ID) FROM SUMMARIES";
+            resultSet = connection.getConnection().prepareStatement(sql).executeQuery();
+            resultSet.next();
         } catch (SQLException e) {
             System.out.println("Error creating empty summary: " + e.getMessage());
         }
-        return resultSet == null ? -1 : resultSet.getInt(1);
+        return resultSet != null ? resultSet.getInt(1) : -1;
     }
 }

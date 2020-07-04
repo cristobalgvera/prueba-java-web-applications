@@ -13,13 +13,13 @@ public abstract class DAO {
     String sql;
 
     // CRUD pattern
-    public abstract void create();
+    public abstract Object create() throws SQLException;
 
-    public abstract List<?> read() throws SQLException;
+    public abstract List<?> readAll() throws SQLException;
 
     public abstract Object read(int id);
 
-    public abstract Object exists(String email, String password);
+    public abstract Object exists(String email, String password) throws SQLException;
 
     public abstract Object update();
 
