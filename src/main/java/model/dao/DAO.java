@@ -4,6 +4,7 @@ import model.database.OracleConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class DAO {
@@ -33,5 +34,13 @@ public abstract class DAO {
         } catch (SQLException e) {
             System.out.println("Disconnection error: " + e.getMessage());
         }
+    }
+
+    protected List<String> getActivities(String activities) {
+        return Arrays.asList(activities.split(";;;;"));
+    }
+
+    protected String setActivities(List<String> activities) {
+        return String.join(";;;;", activities);
     }
 }

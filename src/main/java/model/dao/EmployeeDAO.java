@@ -4,11 +4,9 @@ import control.entities.Employee;
 import control.entities.Summary;
 import control.entities.Visit;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class EmployeeDAO extends DAO {
     Employee employee;
@@ -144,9 +142,51 @@ public class EmployeeDAO extends DAO {
     // TODO Implement all relevant methods for employees
 
     public List<Visit> pendingVisits() {
-        List<Visit> pendingVisits = new ArrayList<>();
+        return getVisits(0);
+    }
 
-        return pendingVisits;
+    public List<Visit> readyVisits() {
+        return getVisits(1);
+    }
+
+    public List<Visit> allVisits() {
+        return getVisits(-1);
+    }
+
+    private List<Visit> getVisits(int ready) {
+        List<Visit> visitList = new ArrayList<>();
+        if (ready != -1) {
+            sql = "SELECT * FROM VISITS V INNER JOIN EMPLOYEES E on E.EMPLOYEE_ID = V.EMPLOYEES_EMPLOYEE_ID WHERE EMPLOYEE_ID = ? AND READY = " + ready;
+        } else {
+            sql = "SELECT * FROM VISITS V INNER JOIN EMPLOYEES E on E.EMPLOYEE_ID = V.EMPLOYEES_EMPLOYEE_ID WHERE EMPLOYEE_ID = ?";
+        }
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, employee.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Visit visit = new Visit();
+                Timestamp timestamp = (resultSet.getTimestamp(4));
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                String formattedDate = formatter.format(timestamp);
+
+                visit.setId(resultSet.getInt(1));
+                visit.setReady(resultSet.getString(2).equals("1")); // String (Char) to a boolean
+                visit.setCustomerId(resultSet.getInt(3));
+                visit.setDate(formattedDate); // resultSet.getData(4)
+                visit.setEmployeeId(resultSet.getInt(5));
+                visit.setSummaryId(resultSet.getInt(6));
+                visit.setPaymentId(resultSet.getInt(7));
+                visit.setActivities(getActivities(resultSet.getString(8))); // Codified string (A;;;;B;;;;C) to a List<String> ([A,B,C])
+
+                visitList.add(visit);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error while trying to request pending visits: " + e.getMessage());
+        } finally {
+            closeConnection();
+            return visitList;
+        }
     }
 
     public Summary requestSummary(int visitId) {

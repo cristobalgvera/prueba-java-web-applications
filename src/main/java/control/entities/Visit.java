@@ -19,8 +19,15 @@ public class Visit {
         this.activities = activities; // TODO Check functionality
     }
 
+    public Visit() {
+    }
+
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getCustomerId() {

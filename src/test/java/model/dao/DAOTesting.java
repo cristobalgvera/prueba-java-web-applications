@@ -2,11 +2,14 @@ package model.dao;
 
 import control.entities.Customer;
 import control.entities.Employee;
-import model.dao.CustomerDAO;
-import model.dao.DAO;
-import model.dao.EmployeeDAO;
+import control.entities.Visit;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DAOTesting {
@@ -70,6 +73,16 @@ public class DAOTesting {
 //        Requiere mail y password (login)
         prueba("COMPROBAR EXISTENCIA DE UN REGISTRO");
         existeRegistro(dbTest);
+        switch (dbTest) {
+            case 1:
+                solicitarVisitaALaEmpresa(4);
+                break;
+            case 2:
+                verVisitasListadas(5);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + dbTest);
+        }
     }
 
     private static void prueba(String nombrePrueba) {
@@ -81,6 +94,40 @@ public class DAOTesting {
         stringBuilder.append(separador);
 
         System.out.println(stringBuilder.toString());
+    }
+
+    private static void solicitarVisitaALaEmpresa(int id) throws SQLException {
+        prueba("SOLICITAR VISITA A LA EMPRESA");
+        Customer customer = (Customer) new CustomerDAO().read(id);
+        CustomerDAO customerDAO = new CustomerDAO(customer);
+        List<String> activities = new ArrayList<>();
+        activities.add("ACTIVIDAD 1");
+        activities.add("ACTIVIDAD 2");
+        activities.add("ACTIVIDAD 3");
+        activities.add("ACTIVIDAD 4");
+        Visit visit = customerDAO.requestVisit(activities, 150000);
+        System.out.println("Customer ID: " + visit.getCustomerId() + "\tEmployee ID: " +
+                visit.getEmployeeId() + "\tFecha: " + visit.getDate() + "Primera actividad: " +
+                visit.getActivity(0) + "Payment ID: " + visit.getPaymentId());
+    }
+
+    private static void verVisitasListadas(int id) {
+        prueba("SOLICITAR VISITAS DEL EMPLOYEE");
+//        Employee employee = (Employee) new EmployeeDAO().read(id);
+//        EmployeeDAO employeeDAO = new EmployeeDAO(employee);
+        System.out.println("\nTODAS LAS VISITAS\n");
+//        List<Visit> visitList = employeeDAO.allVisits();
+        for (Visit visit : new EmployeeDAO((Employee) new EmployeeDAO().read(id)).allVisits()) {
+            System.out.println("Customer ID: " + visit.getCustomerId() + "\tFecha: " + visit.getDate());
+        }
+        System.out.println("\nVISITAS LISTAS\n");
+        for (Visit visit : new EmployeeDAO((Employee) new EmployeeDAO().read(id)).readyVisits()) {
+            System.out.println("Customer ID: " + visit.getCustomerId() + "\tFecha: " + visit.getDate());
+        }
+        System.out.println("\nVISITAS PENDIENTES\n");
+        for (Visit visit : new EmployeeDAO((Employee) new EmployeeDAO().read(id)).pendingVisits()) {
+            System.out.println("Customer ID: " + visit.getCustomerId() + "\tFecha: " + visit.getDate());
+        }
     }
 
     private static void leerTodaLaBD(int dbTest) throws SQLException {

@@ -42,52 +42,52 @@ VALUES ('Chile', 'Angol', 'Ginebra', 8932, 5);
 ---- Creación de resúmenes
 
 INSERT INTO SUMMARIES (DESCRIPTION, RATING, "date")
-VALUES ('Visita pendiente', -1, TO_DATE('03/08/2020 00:08:17', 'dd/mm/yyyy hh24:mi:ss'));
+VALUES ('Visita pendiente', -1, TO_DATE('03/08/2020', 'dd/mm/yyyy hh24:mm:ss'));
 INSERT INTO SUMMARIES (DESCRIPTION, RATING, "date")
 VALUES ('Visita exitosa donde fueron vistos los puntos mencionados en el informe a cabalidad y de manera correcta', 8,
-        TO_DATE('02/05/2020 16:02:44', 'dd/mm/yyyy hh24:mi:ss'));
+        TO_DATE('02/05/2020', 'dd/mm/yyyy hh24:mm:ss'));
 INSERT INTO SUMMARIES (DESCRIPTION, RATING, "date")
-VALUES ('Visita pendiente', -1, TO_DATE('03/08/2020 00:08:17', 'dd/mm/yyyy hh24:mi:ss'));
+VALUES ('Visita pendiente', -1, TO_DATE('03/08/2020', 'dd/mm/yyyy hh24:mm:ss'));
 INSERT INTO SUMMARIES (DESCRIPTION, RATING, "date")
 VALUES ('Visita concluida con problemas por tal y tal motivo', 3,
-        TO_DATE('01/07/2020 12:08:17', 'dd/mm/yyyy hh24:mi:ss'));
+        TO_DATE('01/07/2020', 'dd/mm/yyyy hh24:mm:ss'));
 INSERT INTO SUMMARIES (DESCRIPTION, RATING, "date")
-VALUES ('Visita pendiente', -1, TO_DATE('03/08/2020 00:08:17', 'dd/mm/yyyy hh24:mi:ss'));
+VALUES ('Visita pendiente', -1, TO_DATE('03/08/2020', 'dd/mm/yyyy hh24:mm:ss'));
 
 -- Creación de cobros
 
 INSERT INTO PAYMENTS ("date", AMOUNT, READY)
-VALUES (TO_DATE('03/08/2020 00:08:17', 'dd/mm/yyyy hh24:mi:ss'), 180000, 0);
+VALUES (TO_DATE('03/08/2020', 'dd/mm/yyyy hh24:mm:ss'), 180000, 0);
 INSERT INTO PAYMENTS ("date", AMOUNT, READY)
-VALUES (TO_DATE('14/04/2020 16:02:44', 'dd/mm/yyyy hh24:mi:ss'), 200000, 1);
+VALUES (TO_DATE('14/04/2020', 'dd/mm/yyyy hh24:mm:ss'), 200000, 1);
 INSERT INTO PAYMENTS ("date", AMOUNT, READY)
-VALUES (TO_DATE('03/08/2020 00:08:17', 'dd/mm/yyyy hh24:mi:ss'), 120000, 0);
+VALUES (TO_DATE('03/08/2020', 'dd/mm/yyyy hh24:mm:ss'), 120000, 0);
 INSERT INTO PAYMENTS ("date", AMOUNT, READY)
-VALUES (TO_DATE('28/07/2020 15:08:17', 'dd/mm/yyyy hh24:mi:ss'), 100000, 1);
+VALUES (TO_DATE('28/07/2020', 'dd/mm/yyyy hh24:mm:ss'), 100000, 1);
 INSERT INTO PAYMENTS ("date", AMOUNT, READY)
-VALUES (TO_DATE('03/08/2020 00:08:17', 'dd/mm/yyyy hh24:mi:ss'), 250000, 0);
+VALUES (TO_DATE('03/08/2020', 'dd/mm/yyyy hh24:mm:ss'), 250000, 0);
 
 -- Creación de visitas
 
 INSERT INTO VISITS (READY, CUSTOMERS_CUSTOMER_ID, "date", EMPLOYEES_EMPLOYEE_ID, ACTIVITIES, SUMMARIES_SUMMARY_ID,
                     PAYMENTS_PAYMENT_ID)
-VALUES (0, 3, TO_DATE('03/08/2020 00:08:17', 'dd/mm/yyyy hh24:mi:ss'), 1,
-        'Hacer esto;Hacer esto otro;Ahora hacer esto;Luego hacer esto', 1, 1);
+VALUES (0, 3, TO_DATE('03/08/2020', 'dd/mm/yyyy hh24:mm:ss'), 1,
+        'Hacer esto;;;;Hacer esto otro;;;;Ahora hacer esto;;;;Luego hacer esto', 1, 1);
 INSERT INTO VISITS (READY, CUSTOMERS_CUSTOMER_ID, "date", EMPLOYEES_EMPLOYEE_ID, ACTIVITIES, SUMMARIES_SUMMARY_ID,
                     PAYMENTS_PAYMENT_ID)
-VALUES (1, 1, TO_DATE('14/04/2020 16:02:44', 'dd/mm/yyyy hh24:mi:ss'), 2,
-        'Haremos algo;Luego ni idea;Pero entonces tendremos esto;Luego terminamos', 2, 2);
+VALUES (1, 1, TO_DATE('14/04/2020', 'dd/mm/yyyy hh24:mm:ss'), 2,
+        'Haremos algo;;;;Luego ni idea;;;;Pero entonces tendremos esto;;;;Luego terminamos', 2, 2);
 INSERT INTO VISITS (READY, CUSTOMERS_CUSTOMER_ID, "date", EMPLOYEES_EMPLOYEE_ID, ACTIVITIES, SUMMARIES_SUMMARY_ID,
                     PAYMENTS_PAYMENT_ID)
-VALUES (0, 4, TO_DATE('03/08/2020 00:08:17', 'dd/mm/yyyy hh24:mi:ss'), 5,
-        'Asesorar a alguien;Hacer charla;Hacer un asado;Finalizar', 3, 3);
+VALUES (0, 4, TO_DATE('03/08/2020', 'dd/mm/yyyy hh24:mm:ss'), 5,
+        'Asesorar a alguien;;;;Hacer charla;;;;Hacer un asado;;;;Finalizar', 3, 3);
 INSERT INTO VISITS (READY, CUSTOMERS_CUSTOMER_ID, "date", EMPLOYEES_EMPLOYEE_ID, ACTIVITIES, SUMMARIES_SUMMARY_ID,
                     PAYMENTS_PAYMENT_ID)
-VALUES (1, 5, TO_DATE('28/07/2020 15:08:17', 'dd/mm/yyyy hh24:mi:ss'), 5,
+VALUES (1, 5, TO_DATE('28/07/2020', 'dd/mm/yyyy hh24:mm:ss'), 5,
         'Esto es de la visita id 4', 4, 4);
 INSERT INTO VISITS (READY, CUSTOMERS_CUSTOMER_ID, "date", EMPLOYEES_EMPLOYEE_ID, ACTIVITIES, SUMMARIES_SUMMARY_ID,
                     PAYMENTS_PAYMENT_ID)
-VALUES (0, 2, TO_DATE('03/08/2020 00:08:17', 'dd/mm/yyyy hh24:mi:ss'), 2,
+VALUES (0, 2, TO_DATE('03/08/2020', 'dd/mm/yyyy hh24:mm:ss'), 2,
         'Esto es de la visita id 5', 5, 5);
 
 -- Seleccionar los empleados que tienen menos visitas registradas
@@ -111,3 +111,11 @@ FROM PAYMENTS
          INNER JOIN VISITS V on PAYMENTS.PAYMENT_ID = V.PAYMENTS_PAYMENT_ID
          INNER JOIN CUSTOMERS C2 on V.CUSTOMERS_CUSTOMER_ID = C2.CUSTOMER_ID
 WHERE PAYMENTS.READY = 0;
+
+SELECT * FROM VISITS V INNER JOIN CUSTOMERS C on C.CUSTOMER_ID = V.CUSTOMERS_CUSTOMER_ID WHERE CUSTOMER_ID = 2 AND READY = 1;
+
+SELECT * FROM VISITS V INNER JOIN EMPLOYEES E on E.EMPLOYEE_ID = V.EMPLOYEES_EMPLOYEE_ID;
+
+SELECT * FROM VISITS WHERE VISIT_ID = (SELECT MAX(VISIT_ID) FROM VISITS);
+
+SELECT MAX(SUMMARY_ID) FROM SUMMARIES;
