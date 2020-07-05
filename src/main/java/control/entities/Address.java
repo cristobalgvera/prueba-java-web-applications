@@ -14,8 +14,15 @@ public class Address {
         this.block = block;
     }
 
+    public Address() {
+    }
+
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getNumber() {
