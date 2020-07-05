@@ -7,6 +7,7 @@ import model.dao.EmployeeDAO;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,17 +22,22 @@ public class Validation extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String loginClass = request.getParameter("loginClass");
-        Object validation = null;
+        Object user = null;
+        RequestDispatcher requestDispatcher = null;
         try {
             if (loginClass.equals("Cliente")) {
-                validation = (Customer) new CustomerDAO().exists(email, password);
+                user = (Customer) new CustomerDAO().exists(email, password);
+                requestDispatcher = request.getRequestDispatcher("");
             } else {
-                validation = (Employee) new EmployeeDAO().exists(email, password);
+                user = (Employee) new EmployeeDAO().exists(email, password);
+                requestDispatcher = request.getRequestDispatcher("");
             }
         } catch (SQLException e) {
-            validation = (int) -1;
+            user = (int) -1;
+            requestDispatcher = request.getRequestDispatcher("error.html");
         } finally {
-            request.setAttribute("customer", validation);
+            request.setAttribute("user", user);
+            requestDispatcher.forward(request, response);
         }
     }
 
