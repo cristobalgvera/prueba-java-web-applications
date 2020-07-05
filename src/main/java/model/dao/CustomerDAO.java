@@ -30,18 +30,18 @@ public class CustomerDAO extends DAO {
     @Override
     public Object create() throws SQLException {
         sql = "INSERT INTO CUSTOMERS (NAME, LAST_NAME, EMAIL, PASSWORD, PHONE_NUMBER) VALUES (?,?,?,?,?)";
+        ResultSet resultSet = null;
         try {
             setStatement();
             preparedStatement.executeUpdate();
             preparedStatement.close();
             sql = "SELECT MAX(CUSTOMER_ID) FROM CUSTOMERS";
-            ResultSet resultSet = connection.getConnection().prepareStatement(sql).executeQuery();
+            resultSet = connection.getConnection().prepareStatement(sql).executeQuery();
             resultSet.next();
-            return read(resultSet.getInt(1));
         } catch (SQLException e) {
             System.out.println("Error while creating: " + e.getMessage());
         }
-        return null;
+        return read(resultSet.getInt(1));
     }
 
     private void setStatement() throws SQLException {
@@ -66,8 +66,8 @@ public class CustomerDAO extends DAO {
             System.out.println("Error while reading: " + e.getMessage());
         } finally {
             connection.getConnection().close();
-            return customers;
         }
+        return customers;
     }
 
     @Override
@@ -83,8 +83,8 @@ public class CustomerDAO extends DAO {
             System.out.println("Error while reading: " + e.getMessage());
         } finally {
             closeConnection();
-            return !customers.isEmpty() ? customers.get(0) : -1;
         }
+        return !customers.isEmpty() ? customers.get(0) : -1;
     }
 
     private void sqlData(int id, ResultSet resultSet) throws SQLException {
@@ -108,9 +108,8 @@ public class CustomerDAO extends DAO {
             resultSet.next();
         } catch (SQLException e) {
             System.out.println("Error while testing existence: " + e.getMessage());
-        } finally {
-            return read(resultSet.getInt(1));
         }
+        return read(resultSet.getInt(1));
     }
 
     @Override
@@ -123,10 +122,8 @@ public class CustomerDAO extends DAO {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error while trying to update a registry: " + e.getMessage());
-        } finally {
-            return read(customer.getId());
         }
-
+        return read(customer.getId());
     }
 
     @Override
@@ -143,13 +140,14 @@ public class CustomerDAO extends DAO {
         }
     }
 
-    public Visit requestVisit(List<String> activities, int price) throws SQLException {
+    public Visit requestVisit(List<String> activities, int price) {
         DateFormat simple = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String date = simple.format(new Date().getTime());
+        Visit visit = null;
         try {
             int summary_id = createSummary(date);
             sql = "INSERT INTO VISITS (READY, CUSTOMERS_CUSTOMER_ID, \"date\", EMPLOYEES_EMPLOYEE_ID, ACTIVITIES, " +
-                    "SUMMARIES_SUMMARY_ID, PAYMENTS_PAYMENT_ID) VALUES (0, ?, TO_DATE(?, 'dd/mm/yyyy hh:mm:ss'), ?, ?, ?, ?)";
+                    "SUMMARIES_SUMMARY_ID, PAYMENTS_PAYMENT_ID) VALUES (0, ?, TO_DATE(?, 'dd/mm/yyyy HH24:mi:ss'), ?, ?, ?, ?)";
             preparedStatement = connection.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, customer.getId());
             preparedStatement.setString(2, date);
@@ -160,44 +158,59 @@ public class CustomerDAO extends DAO {
                         e.getMessage());
                 // TODO Create a generic employee to assign tasks on lack of employees case
             }
-            preparedStatement.setString(4, setActivities(activities));
+            preparedStatement.setString(4, codeActivities(activities));
             preparedStatement.setInt(5, summary_id);
             try {
                 preparedStatement.setInt(6, assignPrice(date, price));
             } catch (SQLException e) {
                 System.out.println("Error while assigning price: " + e.getMessage());
+                e.getStackTrace();
             }
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            sql = "SELECT * FROM VISITS WHERE VISIT_ID = (SELECT MAX(VISIT_ID) FROM VISITS);";
+            sql = "SELECT * FROM VISITS WHERE VISIT_ID = (SELECT MAX(VISIT_ID) FROM VISITS)";
             ResultSet resultSet = connection.getConnection().prepareStatement(sql).executeQuery();
             resultSet.next();
-            return getVisit(resultSet);
+            visit = getVisit(resultSet);
         } catch (SQLException e) {
             System.out.println("Error requesting visit: " + e.getMessage());
         } finally {
             closeConnection();
         }
-        return null;
+        return visit;
     }
 
     private Visit getVisit(ResultSet resultSet) throws SQLException {
         Visit visit = new Visit();
-        DateFormat simple = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        DateFormat simple = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         visit.setId(resultSet.getInt(1));
         visit.setReady(resultSet.getString(2).equals("1")); // String (Char) to a boolean
         visit.setCustomerId(resultSet.getInt(3));
-        visit.setDate(simple.format(resultSet.getDate(4))); // Date to a String
+        visit.setDate(simple.format(resultSet.getTimestamp(4))); // Date to a String
         visit.setEmployeeId(resultSet.getInt(5));
         visit.setSummaryId(resultSet.getInt(6));
         visit.setPaymentId(resultSet.getInt(7));
-        visit.setActivities(getActivities(resultSet.getString(8))); // Codified string (A;;;;B;;;;C) to a List<String> ([A,B,C])
+        visit.setActivities(decodeActivities(resultSet.getString(8))); // Codified string (A;;;;B;;;;C) to a List<String> ([A,B,C])
         return visit;
+    }
+
+    public void pay(int visitId){
+        sql = "UPDATE PAYMENTS SET READY = 1 WHERE PAYMENT_ID = (SELECT PAYMENTS_PAYMENT_ID FROM VISITS " +
+                "V INNER JOIN PAYMENTS P on P.PAYMENT_ID = V.PAYMENTS_PAYMENT_ID WHERE VISIT_ID = ?)";
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, visitId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error ending visit: " + e.getMessage());
+        } finally {
+            closeConnection();
+        }
     }
 
     private int assignPrice(String date, int price) throws SQLException {
         String sql1 = "INSERT INTO PAYMENTS (\"date\", AMOUNT, READY) " +
-                "VALUES (TO_DATE(?, 'dd/MM/yyyy hh:mm:ss'), ?, 0)";
+                "VALUES (TO_DATE(?, 'dd/MM/yyyy HH24:mi:ss'), ?, 0)";
         ResultSet resultSet = null;
         try {
             PreparedStatement preparedStatement1 = connection.getConnection().prepareStatement(sql1);
@@ -210,12 +223,11 @@ public class CustomerDAO extends DAO {
             resultSet.next();
         } catch (SQLException e) {
             System.out.println("Error while assigning price: " + e.getMessage());
-        } finally {
-            return resultSet != null ? resultSet.getInt(1) : -1;
         }
+        return resultSet != null ? resultSet.getInt(1) : -1;
     }
 
-    private int selectEmployee() throws SQLException {
+    private int selectEmployee() {
         // TODO Improve this selection code - can be giving it two options: default selection or defined selection
         String sql1 = "SELECT EMPLOYEE_ID " +
                 "FROM EMPLOYEES FULL JOIN VISITS V on EMPLOYEES.EMPLOYEE_ID = V.EMPLOYEES_EMPLOYEE_ID " +
@@ -233,29 +245,25 @@ public class CustomerDAO extends DAO {
             while (resultSet.next()) {
                 resultSetIdList.add(resultSet.getInt(1));
             }
-            return resultSetIdList.get((int) Math.random() * resultSetIdList.size() - 1);
+            return resultSetIdList.get((int) (Math.random() * resultSetIdList.size()));
         } catch (SQLException e) {
             System.out.println("Error selecting employee to assign visit: " + e.getMessage());
             return -1;
         }
     }
 
-    private int createSummary(String date) throws SQLException {
+    private int createSummary(String date) {
         sql = "INSERT INTO SUMMARIES (DESCRIPTION, RATING, \"date\")" +
-                "VALUES ('Visita pendiente', -1, TO_DATE(?))";
+                "VALUES ('Visita pendiente', -1, TO_DATE(?, 'dd/mm/yyyy HH24:mi:ss'))";
         int summaryId = -1;
         try {
             preparedStatement = connection.getConnection().prepareStatement(sql);
-            System.out.println("antes date");
             preparedStatement.setString(1, date);
-            System.out.println("después date");
             preparedStatement.executeUpdate();
-            System.out.println("después update");
             preparedStatement.close();
             sql = "SELECT MAX(SUMMARY_ID) FROM SUMMARIES";
             ResultSet resultSet = connection.getConnection().prepareStatement(sql).executeQuery();
             resultSet.next();
-            System.out.println(resultSet.getInt(1));
             summaryId = resultSet.getInt(1);
         } catch (SQLException e) {
             System.out.println("Error creating empty summary: " + e.getMessage());

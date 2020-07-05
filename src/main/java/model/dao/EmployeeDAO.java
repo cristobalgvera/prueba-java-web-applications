@@ -5,13 +5,14 @@ import control.entities.Summary;
 import control.entities.Visit;
 
 import java.sql.*;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 public class EmployeeDAO extends DAO {
     Employee employee;
     List<Employee> employees;
-
 
     public EmployeeDAO() {
         employees = new ArrayList<>();
@@ -35,9 +36,8 @@ public class EmployeeDAO extends DAO {
             resultSet.next();
         } catch (SQLException e) {
             System.out.println("Error while creating: " + e.getMessage());
-        } finally {
-            return read(resultSet.getInt(1));
         }
+        return read(resultSet.getInt(1));
     }
 
     private void setStatement() throws SQLException {
@@ -62,8 +62,8 @@ public class EmployeeDAO extends DAO {
             System.out.println("Error while reading: " + e.getMessage());
         } finally {
             connection.getConnection().close();
-            return employees;
         }
+        return employees;
     }
 
     @Override
@@ -79,8 +79,8 @@ public class EmployeeDAO extends DAO {
             System.out.println("Error while reading: " + e.getMessage());
         } finally {
             closeConnection();
-            return !employees.isEmpty() ? employees.get(0) : -1;
         }
+        return !employees.isEmpty() ? employees.get(0) : -1;
     }
 
     private void sqlData(int id, ResultSet resultSet) throws SQLException {
@@ -104,9 +104,8 @@ public class EmployeeDAO extends DAO {
             resultSet.next();
         } catch (SQLException e) {
             System.out.println("Error while testing existence: " + e.getMessage());
-        } finally {
-            return read(resultSet.getInt(1));
         }
+        return read(resultSet.getInt(1));
     }
 
     @Override
@@ -120,9 +119,8 @@ public class EmployeeDAO extends DAO {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error while updating: " + e.getMessage());
-        } finally {
-            return read(employee.getId());
         }
+        return read(employee.getId());
     }
 
     @Override
@@ -138,8 +136,6 @@ public class EmployeeDAO extends DAO {
             closeConnection();
         }
     }
-
-    // TODO Implement all relevant methods for employees
 
     public List<Visit> pendingVisits() {
         return getVisits(0);
@@ -177,7 +173,7 @@ public class EmployeeDAO extends DAO {
                 visit.setEmployeeId(resultSet.getInt(5));
                 visit.setSummaryId(resultSet.getInt(6));
                 visit.setPaymentId(resultSet.getInt(7));
-                visit.setActivities(getActivities(resultSet.getString(8))); // Codified string (A;;;;B;;;;C) to a List<String> ([A,B,C])
+                visit.setActivities(decodeActivities(resultSet.getString(8))); // Codified string (A;;;;B;;;;C) to a List<String> ([A,B,C])
 
                 visitList.add(visit);
             }
@@ -185,12 +181,92 @@ public class EmployeeDAO extends DAO {
             System.out.println("Error while trying to request pending visits: " + e.getMessage());
         } finally {
             closeConnection();
-            return visitList;
+        }
+        return visitList;
+    }
+
+    public void endVisit(int visitId) {
+        sql = "UPDATE VISITS SET READY = 1 WHERE VISIT_ID = ?";
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, visitId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error ending visit: " + e.getMessage());
+        } finally {
+            closeConnection();
         }
     }
 
-    public Summary requestSummary(int visitId) {
-        Summary requestedSummary = null;
-        return requestedSummary;
+    public Summary getSummary(int visitId) throws SQLException {
+        DateFormat simple = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        sql = "SELECT SUMMARIES_SUMMARY_ID FROM VISITS WHERE VISIT_ID = ?";
+        Summary summary = null;
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, visitId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            sql = "SELECT * FROM SUMMARIES WHERE SUMMARY_ID = " + resultSet.getInt(1);
+            preparedStatement.close();
+            resultSet = connection.getConnection().prepareStatement(sql).executeQuery();
+            resultSet.next();
+            summary = new Summary(resultSet.getInt(1), resultSet.getInt(3),
+                    resultSet.getString(2), simple.format(resultSet.getTimestamp(4)));
+        } catch (SQLException e) {
+            System.out.println("Error getting summary: " + e.getMessage());
+        } finally {
+            closeConnection();
+        }
+        return summary;
+    }
+
+    public void setSummary(Summary summary) {
+        DateFormat simple = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String date = simple.format(new Date().getTime());
+        sql = "UPDATE SUMMARIES SET DESCRIPTION = ?, RATING = ?, \"date\" = TO_DATE(?, 'dd/mm/yyyy HH24:mi:ss') WHERE SUMMARY_ID = ?";
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, summary.getDescription());
+            preparedStatement.setInt(2, summary.getRating());
+            preparedStatement.setString(3, date);
+            preparedStatement.setInt(4, summary.getId());
+            preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            System.out.println("Error setting summary: " + e.getMessage());
+        } finally {
+            closeConnection();
+        }
+    }
+
+    public List<String> getActivities(int visitId) throws SQLException {
+        sql = "SELECT ACTIVITIES FROM VISITS WHERE VISIT_ID = ?";
+        List<String> activities = null;
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, visitId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            activities = decodeActivities(resultSet.getString(1));
+        } catch (SQLException e) {
+            System.out.println("Error getting activities: " + e.getMessage());
+        } finally {
+            closeConnection();
+        }
+        return activities;
+    }
+
+    public void setActivities(int visitId, List<String> activities) {
+        sql = "UPDATE VISITS SET ACTIVITIES = ? WHERE VISIT_ID = ?";
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, codeActivities(activities));
+            preparedStatement.setInt(2, visitId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error setting activities: " + e.getMessage());
+        } finally {
+            closeConnection();
+        }
     }
 }

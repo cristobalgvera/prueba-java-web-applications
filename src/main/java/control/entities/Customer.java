@@ -1,7 +1,7 @@
 package control.entities;
 
 public class Customer {
-    private int id;
+    private final int id;
     private String name, lastName, email, password, phoneNumber;
 
     public Customer(int id, String name, String lastName, String email, String password, String phoneNumber) {

@@ -36,11 +36,11 @@ public abstract class DAO {
         }
     }
 
-    protected List<String> getActivities(String activities) {
+    protected List<String> decodeActivities(String activities) {
         return Arrays.asList(activities.split(";;;;"));
     }
 
-    protected String setActivities(List<String> activities) {
+    protected String codeActivities(List<String> activities) {
         return String.join(";;;;", activities);
     }
 }

@@ -1,7 +1,8 @@
 package control.entities;
 
 public class Summary {
-    private int id, rating;
+    private final int id;
+    private int rating;
     private String description, date;
 
     public Summary(int id, int rating, String description, String date) {

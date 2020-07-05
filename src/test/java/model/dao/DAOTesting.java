@@ -2,14 +2,11 @@ package model.dao;
 
 import control.entities.Customer;
 import control.entities.Employee;
+import control.entities.Summary;
 import control.entities.Visit;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class DAOTesting {
@@ -76,9 +73,13 @@ public class DAOTesting {
         switch (dbTest) {
             case 1:
                 solicitarVisitaALaEmpresa(4);
+                pagarDeuda();
                 break;
             case 2:
                 verVisitasListadas(5);
+                solicitarResumen(2); // y actualizar a la vez
+                finalizarVisita();
+                actividadesVisita(36);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + dbTest);
@@ -96,7 +97,29 @@ public class DAOTesting {
         System.out.println(stringBuilder.toString());
     }
 
-    private static void solicitarVisitaALaEmpresa(int id) throws SQLException {
+    private static void actividadesVisita(int visitId) throws SQLException {
+        prueba("OBTENER Y ACTUALIZAR DE ACTIVIDADES");
+        List<String> activities = new EmployeeDAO().getActivities(visitId);
+        activities.set(3, "¡CAMBIO DE ACTIVIDAD FUNCIONA!");
+        new EmployeeDAO().setActivities(visitId, activities);
+    }
+
+    private static void solicitarResumen(int visitId) throws SQLException {
+        prueba("SOLICITAR RESUMEN");
+        Summary summary = new EmployeeDAO().getSummary(2);
+        System.out.println("ID: " + summary.getId() + "\tDescripción: " + summary.getDescription() + "\tRating: " +
+                summary.getRating() + "\tFecha: " + summary.getDate());
+        actualizarResumen(summary);
+    }
+
+    private static void actualizarResumen(Summary summary) {
+        prueba("ACTUALIZAR RESUMEN");
+        summary.setDescription("ESTA VISITA SALIÓ EXCELENTE");
+        summary.setRating(9);
+        new EmployeeDAO().setSummary(summary);
+    }
+
+    private static void solicitarVisitaALaEmpresa(int id) {
         prueba("SOLICITAR VISITA A LA EMPRESA");
         Customer customer = (Customer) new CustomerDAO().read(id);
         CustomerDAO customerDAO = new CustomerDAO(customer);
@@ -107,8 +130,18 @@ public class DAOTesting {
         activities.add("ACTIVIDAD 4");
         Visit visit = customerDAO.requestVisit(activities, 150000);
         System.out.println("Customer ID: " + visit.getCustomerId() + "\tEmployee ID: " +
-                visit.getEmployeeId() + "\tFecha: " + visit.getDate() + "Primera actividad: " +
-                visit.getActivity(0) + "Payment ID: " + visit.getPaymentId());
+                visit.getEmployeeId() + "\tFecha: " + (visit.getDate()) + "\tSegunda actividad: " +
+                visit.getActivity(1) + "\tPayment ID: " + visit.getPaymentId());
+    }
+
+    private static void finalizarVisita() {
+        prueba("FINALIZAR VISITA");
+        new EmployeeDAO().endVisit(30);
+    }
+
+    private static void pagarDeuda() {
+        prueba("PAGAR DEUDA");
+        new CustomerDAO().pay(38);
     }
 
     private static void verVisitasListadas(int id) {

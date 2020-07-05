@@ -1,7 +1,8 @@
 package control.entities;
 
 public class Payment {
-    private int id, amount;
+    private final int id;
+    private int amount;
     private boolean ready;
     private String date;
 
