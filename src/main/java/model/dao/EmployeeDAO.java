@@ -1,5 +1,6 @@
 package model.dao;
 
+import control.entities.Address;
 import control.entities.Employee;
 import control.entities.Summary;
 import control.entities.Visit;
@@ -268,5 +269,29 @@ public class EmployeeDAO extends DAO {
         } finally {
             closeConnection();
         }
+    }
+
+    // TODO Set unit test
+
+    public Address getAddress(int visitId) {
+        sql = "SELECT * FROM ADDRESSES A INNER JOIN VISITS V on A.CUSTOMERS_CUSTOMER_ID " +
+                "= V.CUSTOMERS_CUSTOMER_ID WHERE VISIT_ID = ?";
+        Address address = new Address();
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, visitId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            address.setId(resultSet.getInt(1));
+            address.setCountry(resultSet.getString(2));
+            address.setCity(resultSet.getString(3));
+            address.setStreet(resultSet.getString(4));
+            address.setNumber(resultSet.getInt(5));
+            address.setBlock(resultSet.getString(6));
+            address.setCustomerId(resultSet.getInt(7));
+        } catch (SQLException e) {
+            System.out.println("Error getting customer address: " + e.getMessage());
+        }
+        return address;
     }
 }

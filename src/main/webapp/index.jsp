@@ -25,7 +25,7 @@
     <option  selected value="Cliente"> Cliente </option>
       </select>
     <h3>Usuario:</h3>
-    <form action="" method="POST">
+    <form action="Validation" method="POST">
     <input type="text" name="user" placeholder="Usuario"/><br>
     <h3>Clave:</h3>
     <input type="password" name="pass" placeholder="Clave"/>

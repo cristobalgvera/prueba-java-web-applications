@@ -141,7 +141,7 @@ public class DAOTesting {
 
     private static void pagarDeuda() {
         prueba("PAGAR DEUDA");
-        new CustomerDAO().pay(38);
+        new CustomerDAO().pay(80);
     }
 
     private static void verVisitasListadas(int id) {
@@ -256,7 +256,7 @@ public class DAOTesting {
                 Customer customer = (Customer) customerDAO.read(id); // Obtenemos un Customer de la BD
 
                 System.out.println("ID: " + customer.getId() + "\tApellido: " + customer.getLastName());
-                customer.setLastName("Garrido"); // Cambiamos algún dato
+                customer.setLastName("Esparza"); // Cambiamos algún dato
 
                 customerDAO = new CustomerDAO(customer);
                 Customer customerModificado = (Customer) customerDAO.update(); // Podemos almacenar la actualización del registro desde la BD
