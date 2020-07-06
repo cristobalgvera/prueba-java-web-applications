@@ -13,10 +13,6 @@ import java.io.IOException;
 
 @WebServlet("/validation")
 public class Validation extends HttpServlet {
-
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -24,7 +20,7 @@ public class Validation extends HttpServlet {
         String email = request.getParameter("user");
         String password = request.getParameter("password");
         String loginClass = request.getParameter("loginClass");
-        System.out.println(email + " - " + password + " - " + loginClass);
+//        System.out.println(email + " - " + password + " - " + loginClass);
         Object user = null;
         RequestDispatcher requestDispatcher = null;
         try {
@@ -40,7 +36,7 @@ public class Validation extends HttpServlet {
             user = -1;
             requestDispatcher = request.getRequestDispatcher("error.html");
         } finally {
-            request.setAttribute("user", user);
+            request.getSession().setAttribute("user", user);
             requestDispatcher.forward(request, response);
         }
     }
