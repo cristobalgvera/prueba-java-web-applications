@@ -12,7 +12,7 @@
 <body>
 
 <div class="logo">
-    <img src="resources/img/logo-A.jpg" alt="logo">
+    <img src="resources/img/logo-A.png" alt="logo">
 </div>
 <div class="login">
 

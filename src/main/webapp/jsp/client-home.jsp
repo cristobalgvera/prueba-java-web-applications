@@ -24,7 +24,7 @@
 </head>
 <body>
     <div class="logo">
-        <img src="img/logo-A.png" alt="logo">
+        <img src="../resources/img/logo-A.png" alt="logo">
       </div>
       <div class="saludo">
       <h2>Bienvenido ${user.getName()}</h2> 
