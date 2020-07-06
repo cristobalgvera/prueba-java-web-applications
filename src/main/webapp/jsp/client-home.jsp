@@ -47,9 +47,9 @@
             <h3>Visualización de pagos</h3>
 
             <p>El Nº de pago realizado es ${user.getId()}</p>
-            <p>La fecha del pago es ${user.getDate()}</p>
-            <p>El monto de la asesoría es ${user.getAmount()}</p>
-            <p>El estado del pago está ${user.getReady()}</p>
+<%--            <p>La fecha del pago es ${user.getDate()}</p>--%>
+<%--            <p>El monto de la asesoría es ${user.getAmount()}</p>--%>
+<%--            <p>El estado del pago está ${user.getReady()}</p>--%>
 
 
           </div>

@@ -4,6 +4,7 @@ import control.entities.Customer;
 import control.entities.Employee;
 import model.dao.CustomerDAO;
 import model.dao.EmployeeDAO;
+import model.database.OracleConnection;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -30,13 +31,10 @@ public class Validation extends HttpServlet {
                 user = (Customer) new CustomerDAO().exists(email, password);
                 requestDispatcher = request.getRequestDispatcher("jsp/client-home.jsp");
             } else {
-//                user = (Employee) new EmployeeDAO().exists(email, password);
-//                requestDispatcher = request.getRequestDispatcher("");
-
-                user = (Customer) new CustomerDAO().exists(email, password);
-                requestDispatcher = request.getRequestDispatcher("jsp/client-home.jsp");
+                user = (Employee) new EmployeeDAO().exists(email, password);
+                requestDispatcher = request.getRequestDispatcher("");
             }
-            System.out.println((user.getClass()));
+            user.getClass();
         } catch (Exception e) {
             user = -1;
             requestDispatcher = request.getRequestDispatcher("error.html");

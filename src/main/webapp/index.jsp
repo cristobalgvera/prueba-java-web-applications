@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:500" rel="stylesheet" type="text/css">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="" rel="stylesheet">
     <title>Login</title>
 </head>
 <body>
