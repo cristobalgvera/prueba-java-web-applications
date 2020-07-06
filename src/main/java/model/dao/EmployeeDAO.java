@@ -275,8 +275,6 @@ public class EmployeeDAO extends DAO {
         }
     }
 
-    // TODO Set unit test
-
     public Address getAddress(int visitId) {
         sql = "SELECT * FROM ADDRESSES A INNER JOIN VISITS V on A.CUSTOMERS_CUSTOMER_ID " +
                 "= V.CUSTOMERS_CUSTOMER_ID WHERE VISIT_ID = ?";

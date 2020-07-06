@@ -16,7 +16,7 @@ public class Visit {
         this.paymentId = paymentId;
         this.ready = ready;
         this.date = date;
-        this.activities = activities; // TODO Check functionality
+        this.activities = activities;
     }
 
     public Visit() {

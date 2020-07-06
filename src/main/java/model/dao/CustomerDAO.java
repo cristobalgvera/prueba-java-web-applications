@@ -30,13 +30,12 @@ public class CustomerDAO extends DAO {
     @Override
     public Object create() throws SQLException {
         sql = "INSERT INTO CUSTOMERS (NAME, LAST_NAME, EMAIL, PASSWORD, PHONE_NUMBER) VALUES (?,?,?,?,?)";
-        ResultSet resultSet = null;
         try {
             setStatement();
             preparedStatement.executeUpdate();
             preparedStatement.close();
             sql = "SELECT MAX(CUSTOMER_ID) FROM CUSTOMERS";
-            resultSet = connection.getConnection().prepareStatement(sql).executeQuery();
+            ResultSet resultSet = connection.getConnection().prepareStatement(sql).executeQuery();
             resultSet.next();
             return read(resultSet.getInt(1));
         } catch (SQLException e) {
