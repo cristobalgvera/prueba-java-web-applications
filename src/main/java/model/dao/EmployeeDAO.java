@@ -5,11 +5,15 @@ import control.entities.Employee;
 import control.entities.Summary;
 import control.entities.Visit;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class EmployeeDAO extends DAO {
     Employee employee;

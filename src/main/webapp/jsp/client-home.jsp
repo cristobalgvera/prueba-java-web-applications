@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,7 +59,7 @@
                 <input type="text" name="name" placeholder="Nombre" required>
                 <input type="hidden" name="id" value="noexiste">
                 <input type="email" name="Email" placeholder="Email"  required>
-                <input type="textarea" class="textarea" placeholder="Escriba aquí su consulta" required>
+                <input type="text" class="textarea" placeholder="Escriba aquí su consulta" required>
                 <input type="submit"  value="Enviar">
             </form>
         
@@ -78,7 +78,7 @@
         </p>
     </footer>
     <script>
-        var envio(){
+        var envio() {
         alert("Se ha enviado el formulario");
         }
     </script>

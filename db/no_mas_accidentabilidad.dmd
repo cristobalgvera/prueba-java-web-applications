@@ -1,8 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="no_mas_accidentabilidad" id="15DA7838-DD46-73A5-31E9-C1E224C9E1E3" version="3.5">
-<createdBy>crist</createdBy>
-<createdTime>2020-07-02 14:50:50 UTC</createdTime>
-<ownerDesignName>no_mas_accidentabilidad</ownerDesignName>
-<capitalNames>false</capitalNames>
-<designId>15DA7838-DD46-73A5-31E9-C1E224C9E1E3</designId>
-</OSDM_Design>

@@ -2,7 +2,7 @@
 /shelf/
 /workspace.xml
 # Datasource local storage ignored files
-/../../../../../../../:\Users\crist\Documents\GitHub\Prueba Java Web Applications\.idea/dataSources/
+/../../../../../../:\Users\crist\eclipse-workspace\java-webapp-test\.idea/dataSources/
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/

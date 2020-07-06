@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="no_mas_accidentabilidad-1.0">
+            
+    
+    <wb-module deploy-name="java-webapp-test">
+                        
+        
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+                        
+        
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+                        
+        
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <property name="context-root" value="no_mas_accidentabilidad"/>
-<<<<<<< Upstream, based on branch 'master' of https://github.com/cristobalgvera/prueba-java-web-applications.git
-        <property name="java-output-path" value="/prueba-java-web-applications2/target/classes"/>
-=======
-        <property name="java-output-path" value="/prueba-java-web-applications/target/classes"/>
->>>>>>> bfc6c70 Modificaciones previas Servlets
+                        
+        
+        <property name="java-output-path" value="/java-webapp/target/classes"/>
+        <property name="context-root" value="java-webapp-test"/>
+                    
+    
     </wb-module>
+        
+
 </project-modules>
