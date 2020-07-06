@@ -14,26 +14,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/Validation")
+@WebServlet("/validation")
 public class Validation extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
+        String email = request.getParameter("user");
         String password = request.getParameter("password");
         String loginClass = request.getParameter("loginClass");
+        System.out.println(email + " - " + password + " - " + loginClass);
         Object user = null;
         RequestDispatcher requestDispatcher = null;
         try {
-            if (loginClass.equals("Cliente")) {
+            if (loginClass.equals("customer")) {
                 user = (Customer) new CustomerDAO().exists(email, password);
-                requestDispatcher = request.getRequestDispatcher("");
+                requestDispatcher = request.getRequestDispatcher("jsp/client-home.jsp");
             } else {
-                user = (Employee) new EmployeeDAO().exists(email, password);
-                requestDispatcher = request.getRequestDispatcher("");
+//                user = (Employee) new EmployeeDAO().exists(email, password);
+//                requestDispatcher = request.getRequestDispatcher("");
+
+                user = (Customer) new CustomerDAO().exists(email, password);
+                requestDispatcher = request.getRequestDispatcher("jsp/client-home.jsp");
             }
-        } catch (SQLException e) {
-            user = (int) -1;
+            System.out.println((user.getClass()));
+        } catch (Exception e) {
+            user = -1;
             requestDispatcher = request.getRequestDispatcher("error.html");
         } finally {
             request.setAttribute("user", user);

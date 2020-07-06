@@ -33,21 +33,32 @@ public class DAOTesting {
         *------------------------
          */
 
-        prueba("CUSTOMERS");
+        Object test = null;
         try {
-            probarBD(1);
-        } catch (SQLException throwables) {
-            System.out.println("ERROR: CUSTOMERS");
-            throwables.printStackTrace();
+            test = (Customer) new CustomerDAO().exists("cristobalgajardo.v@gmail.com","12345");
+            test.getClass();
+        } catch (Exception throwables) {
+            System.out.println("ERROR");
+            test = -1;
+//            throwables.printStackTrace();
         }
+        System.out.println(test.getClass());
 
-        prueba("EMPLOYEES");
-        try {
-            probarBD(2);
-        } catch (SQLException throwables) {
-            System.out.println("ERROR: EMPLOYEES");
-            throwables.printStackTrace();
-        }
+//        prueba("CUSTOMERS");
+//        try {
+//            probarBD(1);
+//        } catch (SQLException throwables) {
+//            System.out.println("ERROR: CUSTOMERS");
+//            throwables.printStackTrace();
+//        }
+//
+//        prueba("EMPLOYEES");
+//        try {
+//            probarBD(2);
+//        } catch (SQLException throwables) {
+//            System.out.println("ERROR: EMPLOYEES");
+//            throwables.printStackTrace();
+//        }
     }
 
     private static void probarBD(int dbTest) throws SQLException {

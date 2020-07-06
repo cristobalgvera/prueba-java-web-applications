@@ -38,10 +38,11 @@ public class CustomerDAO extends DAO {
             sql = "SELECT MAX(CUSTOMER_ID) FROM CUSTOMERS";
             resultSet = connection.getConnection().prepareStatement(sql).executeQuery();
             resultSet.next();
+            return read(resultSet.getInt(1));
         } catch (SQLException e) {
             System.out.println("Error while creating: " + e.getMessage());
         }
-        return read(resultSet.getInt(1));
+        return null;
     }
 
     private void setStatement() throws SQLException {
@@ -106,10 +107,11 @@ public class CustomerDAO extends DAO {
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
             resultSet.next();
+            return read(resultSet.getInt(1));
         } catch (SQLException e) {
             System.out.println("Error while testing existence: " + e.getMessage());
         }
-        return read(resultSet.getInt(1));
+        return null;
     }
 
     @Override
@@ -120,10 +122,11 @@ public class CustomerDAO extends DAO {
             setStatement();
             preparedStatement.setInt(6, customer.getId());
             preparedStatement.executeUpdate();
+            return read(customer.getId());
         } catch (SQLException e) {
             System.out.println("Error while trying to update a registry: " + e.getMessage());
         }
-        return read(customer.getId());
+        return null;
     }
 
     @Override
