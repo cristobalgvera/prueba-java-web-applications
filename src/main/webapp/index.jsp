@@ -6,13 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:500" rel="stylesheet" type="text/css">
-    <link href="" rel="stylesheet">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/style.css"> 
     <title>Login</title>
 </head>
 <body>
 
 <div class="logo">
-    <img src="img/logo-A.png" alt="logo">
+    <img src="resources/img/logo-A.jpg" alt="logo">
 </div>
 <div class="login">
 
@@ -25,12 +25,12 @@
                 <option value="employee">Colaborador</option>
                 <option selected value="customer">Cliente</option>
             </select>
-            <h3>Usuario:</h3>
+            <label>Usuario:</label>
             <input type="text" name="user" placeholder="Usuario"/><br>
-            <h3>Clave:</h3>
-            <input type="password" name="password" placeholder="Clave"/>
+            <label>Clave:</label>
+            <input type="password" name="password"  required placeholder="Clave"/>
             <br>
-            <input type="submit" value="Acceso" class="login-button"/>
+            <input type="submit" value="Acceso" required class="login-button"/>
         </form>
     </div>
 </div>
