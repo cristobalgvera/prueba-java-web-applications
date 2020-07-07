@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:500" rel="stylesheet" type="text/css">
-    <link href="../css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
@@ -27,7 +27,7 @@
         <img src="../resources/img/logo-A.png" alt="logo">
       </div>
       <div class="saludo">
-      <h2>Bienvenido trabajador ${user.getName()}</h2> 
+      <h2>Bienvenido mano de obra ${user.getName()}</h2> 
         </div>
 
       <div id="tabs">
@@ -40,6 +40,7 @@
         </ul>
         <div id="tabs-1">
          <h3>Visitas pendientes</h3>
+
 
 
             
