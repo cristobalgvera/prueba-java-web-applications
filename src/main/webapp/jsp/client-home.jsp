@@ -44,6 +44,7 @@
 			<li><a href="#tabs-4">Revisar pagos</a></li>
 			<li><a href="#tabs-5">Ayuda</a></li>
 		</ul>
+		</div>
 		<div id="tabs-1">
 			<h3>Solicitar asesoría</h3>
 
@@ -155,10 +156,6 @@
 					<p>Formulario de ayuda</p>
 					<input type="text" name="name" placeholder="Nombre" required>
 					<input type="hidden" name="id" value="noexiste"> <input
-						type="email" name="Email" placeholder="Email" required> <input
-						type="textarea" class="textarea"
-						placeholder="Escriba aquí su consulta" required> <input
-						type="submit" value="Enviar">
 				</form>
 
 			</div>
