@@ -156,6 +156,9 @@
 					<p>Formulario de ayuda</p>
 					<input type="text" name="name" placeholder="Nombre" required>
 					<input type="hidden" name="id" value="noexiste"> <input
+						type="email" name="Email" placeholder="Email" required>
+						 <input type="textarea" class="textarea" placeholder="Escriba aquí su consulta" required>
+						  <input type="submit" value="Enviar">
 				</form>
 
 			</div>
