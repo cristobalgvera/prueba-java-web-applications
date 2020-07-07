@@ -27,6 +27,12 @@
 			<version>19.7.0.0</version>
 		</dependency>
 		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+
 			<groupId>javax</groupId>
 			<artifactId>javaee-web-api</artifactId>
 			<version>8.0.1</version>
@@ -47,8 +53,8 @@
 
 	<build>
 		<finalName>java-webapp-test</finalName>
-		<pluginManagement><!-- lock down plugins versions to avoid using Maven 
-				defaults (may be moved to parent pom) -->
+		<pluginManagement>
+			
 			<plugins>
 				<plugin>
 					<artifactId>maven-clean-plugin</artifactId>

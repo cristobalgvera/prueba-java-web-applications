@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
     pageEncoding="UTF-8" isELIgnored="false"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +20,7 @@
  		} );
   		</script>
 </head>
-    <title>Home Cliente</title>
+<title>Home Cliente</title>
 </head>
 <body>
     <div class="logo">
@@ -61,40 +61,131 @@
             
             <input type="number" name="id" required placeholder="Número de asesoría" >
 		
-        <div id="tabs-4">
+					<input type="text" name="name" placeholder="Nombre" required>
+					 <input type="email" name="Email" placeholder="Email" required>
+					 <input type="text" name="address" placeholder="Dirección" required>
+				     <input type="date" name="date" required>
+				     <input type="hidden" name="id" value="noexiste">
+				     <input type="submit" value="Enviar">
+				</form>
+		</div>
+		<div id="tabs-2">
+			<h3>Visualización de asesoría</h3>
 
-            <h3>Visualización de pagos</h3>
+			<ol>
+			<c:set var="idvisit" value="${0}" />
+					<c:forEach var="visit" items="${visit}">
+						<c:set var="idvisit" value="${idvisit+1}" />
+			<li><c:out value="${idvisit}" />
+			<div id="dialog" title="Basic dialog">
+  <p>Número de asesoría: <c:out value="${idvisit}" /><br>
+	Nº de colaborador: <c:out value="${visit.getEmployeeId()}" /><br>
+	Fecha de realización: <c:out value="${visit.getDate()}" /><br>
+	Nº confirmación de pago: <c:out value="${visit.getPaymentId()}" /><br>
+	Actividades realizadas:  <c:out value="${visit.getActivities()}" /><br>
+</p>
+</div>
+</li>
+			</c:forEach>
+			</ol>
 
-            <p>El ID de pago realizado es ${payment.getId()}</p><br>
-			<p>La fecha del pago es ${payment.getDate()}</p><br>
-			<p>El monto de la asesoría es ${payment.getAmount()}</p><br>
-          	<p>El estado del pago está ${payment.getReady()}</p>
+		</div>
+		<div id="tabs-3">
+			<h3>Realizar pagos</h3>
+
+			<p>Indicar el ID de la asesoría a pagar</p>
+			<br> <input type="number" name="id" required
+				placeholder="Número de asesoría">
+			<table>
+				<thead>
+					<tr>
+						<th>Número de transacción</th>
+						<th>Fecha</th>
+						<th>Monto</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<c:set var="ntransaccion" value="${0}" />
+					<c:forEach var="pay" items="${payments}">
+						<c:set var="ntransaccion" value="${ntransaccion+1}" />
+						<tr>
+
+							<td><c:out value="${ntransaccion}" /></td>
+							<td><c:out value="${pay.getDate()}" /></td>
+							<td><c:out value="${pay.getAmount()}" /></td>
+							<c:if test="${!pay.isReady()}">
+								<td class="sinborde">
+									<form action="home" method="POST">
+										<input type="submit" name="btnpagar"> <input
+											type="hidden" name="idpago" value="${pay.getId()}">
+
+									</form>
+								</td>
+							</c:if>
+						</tr>
 
 
-          </div>
-          <div id="tabs-5">
-            <form class="formayuda" action="actions" method="POST">
-                <p>Formulario de ayuda</p>
-                <input type="text" name="name" placeholder="Nombre" required>
-                <input type="hidden" name="id" value="noexiste">
-                <input type="email" name="Email" placeholder="Email"  required>
-                <input type="textarea" class="textarea" placeholder="Escriba aquí su consulta" required>
-                <input type="submit"  value="Enviar">
-            </form>
-        
-          </div>
-      </div>
+
+					</c:forEach>
+				</tbody>
+			</table>
+
+			<div id="tabs-4">
+
+				<h3>Visualización de pagos</h3>
+
+				<table>
+					<thead>
+						<tr>
+							<th>Nº de transación del pago</th>
+							<th>Fecha del pago</th>
+							<th>Valor total</th>
+							<th>Estado del pago</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<c:set var="nasesoria" value="${0}" />
+						<c:forEach var="pay" items="${payment}">
+							<c:set var="nasesoria" value="${nasesoria+1}" />
+							<tr>
+								<td><c:out value="${pay.getId()}" /></td>
+								<td><c:out value="${pay.getDate()}" /></td>
+								<td><c:out value="${pay.getAmount()}" /></td>
+								<td><c:out value="${pay.isReady() ? 'Pagado': 'No Pagado'}"/></td>
+							</tr>
+
+						</c:forEach>
+					</tbody>
+
+				</table>
+
+			</div>
+			<div id="tabs-5">
+				<form class="formayuda" action="actions" method="POST">
+					<p>Formulario de ayuda</p>
+					<input type="text" name="name" placeholder="Nombre" required>
+					<input type="hidden" name="id" value="noexiste"> <input
+						type="email" name="Email" placeholder="Email" required> <input
+						type="textarea" class="textarea"
+						placeholder="Escriba aquí su consulta" required> <input
+						type="submit" value="Enviar">
+				</form>
+
+			</div>
+		</div>
 
 
 
 
 
 
-   
-    <footer>
-        <p> Asesorías digitales <br>
-        Todos los derechos reservados.
-        </p>
-    </footer>
+
+		<footer>
+			<p>
+				Asesorías digitales <br> Todos los derechos reservados.
+			</p>
+		</footer>
 </body>
 </html>
