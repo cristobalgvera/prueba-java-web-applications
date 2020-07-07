@@ -34,7 +34,7 @@ public class Validation extends HttpServlet {
             user.getClass();
         } catch (Exception e) {
             user = -1;
-            requestDispatcher = request.getRequestDispatcher("error.html");
+            requestDispatcher = request.getRequestDispatcher("html/error.html");
         } finally {
             request.getSession().setAttribute("user", user);
             requestDispatcher.forward(request, response);

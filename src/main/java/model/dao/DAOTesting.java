@@ -4,6 +4,7 @@ import control.entities.Customer;
 import control.entities.Employee;
 import control.entities.Summary;
 import control.entities.Visit;
+import model.database.OracleConnection;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,6 +12,9 @@ import java.util.List;
 
 public class DAOTesting {
     public static void main(String[] args) {
+ 
+    	
+    	
         /*
         Para utilizar cada método de las distintas funciones sólo debes quitar el comentario de la línea.
         En cada método se observa la forma de trabajo del DAO.
