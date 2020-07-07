@@ -27,17 +27,19 @@
         <img src="../resources/img/logo-A.png" alt="logo">
       </div>
       <div class="saludo">
-      <h2>Bienvenido mano de obra ${user.getName()}</h2> 
+      <h2>Bienvenido ${user.getName()} !</h2> 
         </div>
 
       <div id="tabs">
         <ul>
-          <li><a href="#tabs-1">Visitas pendientes</a></li>
+          <li><a href="#tabs-1" onclick="hola()">Visitas pendientes</a></li>
           <li><a href="#tabs-2">Revisar visita</a></li>
-          <li><a href="#tabs-3">Realizar pagos</a></li>
+          <li><a href="#tabs-3">Finalizar visita</a></li>
           <li><a href="#tabs-4">Revisar pagos</a></li>
           <li><a href="#tabs-5">Ayuda</a></li>
         </ul>
+        </div>
+        
         <div id="tabs-1">
          <h3>Visitas pendientes</h3>
 
@@ -81,7 +83,7 @@
                 <input type="text" name="name" placeholder="Nombre" required>
                 <input type="hidden" name="id" value="noexiste">
                 <input type="email" name="Email" placeholder="Email"  required>
-                <input type="textarea" class="textarea" placeholder="Escriba aquí su consulta" required>
+                <input type="text" class="text" placeholder="Escriba aquí su consulta" required>
                 <input type="submit"  value="Enviar">
             </form>
         
@@ -99,5 +101,10 @@
         Todos los derechos reservados.
         </p>
     </footer>
+    <script type="text/javascript">
+    function hola(){
+    	$(this).html("Hola bebe");
+    }
+    </script>
 </body>
 </html>
