@@ -4,14 +4,19 @@ import model.database.OracleConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class DAO {
     // Database connection
-    OracleConnection connection = new OracleConnection();
-    PreparedStatement preparedStatement;
-    String sql;
+    protected OracleConnection connection = new OracleConnection();
+    protected PreparedStatement preparedStatement;
+    protected String sql;
+
+    // Standard date format
+    protected DateFormat simple = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
     // CRUD pattern
     public abstract Object create() throws SQLException;

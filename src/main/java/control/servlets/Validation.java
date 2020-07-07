@@ -29,7 +29,7 @@ public class Validation extends HttpServlet {
                 requestDispatcher = request.getRequestDispatcher("jsp/client-home.jsp");
             } else {
                 user = new EmployeeDAO().exists(email, password);
-                requestDispatcher = request.getRequestDispatcher("");
+                requestDispatcher = request.getRequestDispatcher("jsp/employee-home.jsp");
             }
             user.getClass();
         } catch (Exception e) {
