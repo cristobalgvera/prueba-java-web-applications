@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +61,24 @@
             <p>Indicar el ID de la asesoría a pagar</p><br>
             
             <input type="number" name="id" required placeholder="Número de asesoría" >
+		<table>
+		<thead>
+		<tr>
+		<th>Número de transacción</th>
+		<th>Monto</th>
+		</tr>
+		</thead>
+		<tbody>
+		for 
 		
+		</tbody>
+		<tfoot>
+		
+		</tfoot>
+		
+		
+		
+		</table>
         <div id="tabs-4">
 
             <h3>Visualización de pagos</h3>
