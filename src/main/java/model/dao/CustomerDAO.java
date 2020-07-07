@@ -1,6 +1,7 @@
 package model.dao;
 
 import control.entities.Customer;
+import control.entities.Payment;
 import control.entities.Visit;
 
 import java.sql.PreparedStatement;
@@ -196,18 +197,37 @@ public class CustomerDAO extends DAO {
         return visit;
     }
 
-    public void pay(int visitId){
-        sql = "UPDATE PAYMENTS SET READY = 1 WHERE PAYMENT_ID = (SELECT PAYMENTS_PAYMENT_ID FROM VISITS " +
-                "V INNER JOIN PAYMENTS P on P.PAYMENT_ID = V.PAYMENTS_PAYMENT_ID WHERE VISIT_ID = ?)";
+    public void pay(int paymentId) {
+        sql = "UPDATE PAYMENTS SET READY = 1 WHERE PAYMENT_ID = ?";
         try {
             preparedStatement = connection.getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, visitId);
+            preparedStatement.setInt(1, paymentId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error ending visit: " + e.getMessage());
+            System.out.println("Error while paying: " + e.getMessage());
         } finally {
             closeConnection();
         }
+    }
+
+    public List<Payment> getPayments() {
+        List<Payment> payments = new ArrayList<>();
+        sql = "SELECT * FROM PAYMENTS" +
+                "         INNER JOIN VISITS V on PAYMENTS.PAYMENT_ID = V.PAYMENTS_PAYMENT_ID" +
+                "         INNER JOIN CUSTOMERS C2 on V.CUSTOMERS_CUSTOMER_ID = C2.CUSTOMER_ID " +
+                "WHERE CUSTOMER_ID = ?";
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, customer.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                payments.add(new Payment(resultSet.getInt(1), resultSet.getInt(3),
+                        resultSet.getString(4).equals("1"), simple.format(resultSet.getTimestamp(2))));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting payments: " + e.getMessage());
+        }
+        return payments;
     }
 
     private int assignPrice(String date, int price) throws SQLException {

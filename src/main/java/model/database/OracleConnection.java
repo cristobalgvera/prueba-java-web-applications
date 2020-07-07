@@ -12,6 +12,7 @@ public class OracleConnection {
     }
 
     private void connect() {
+//        String user = "NOMASACCIDENTABILIDAD";
         String user = "no_mas_accidentabilidad";
         String pass = "12345";
         String url = "jdbc:oracle:thin:@localhost:1521:XE";

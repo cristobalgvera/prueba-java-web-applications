@@ -9,8 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -168,8 +166,7 @@ public class EmployeeDAO extends DAO {
             while (resultSet.next()) {
                 Visit visit = new Visit();
                 Timestamp timestamp = (resultSet.getTimestamp(4));
-                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-                String formattedDate = formatter.format(timestamp);
+                String formattedDate = simple.format(timestamp);
 
                 visit.setId(resultSet.getInt(1));
                 visit.setReady(resultSet.getString(2).equals("1")); // String (Char) to a boolean
@@ -204,7 +201,6 @@ public class EmployeeDAO extends DAO {
     }
 
     public Summary getSummary(int visitId) throws SQLException {
-        DateFormat simple = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         sql = "SELECT SUMMARIES_SUMMARY_ID FROM VISITS WHERE VISIT_ID = ?";
         Summary summary = null;
         try {
@@ -227,7 +223,6 @@ public class EmployeeDAO extends DAO {
     }
 
     public void setSummary(Summary summary) {
-        DateFormat simple = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String date = simple.format(new Date().getTime());
         sql = "UPDATE SUMMARIES SET DESCRIPTION = ?, RATING = ?, \"date\" = TO_DATE(?, 'dd/mm/yyyy HH24:mi:ss') WHERE SUMMARY_ID = ?";
         try {
@@ -293,6 +288,8 @@ public class EmployeeDAO extends DAO {
             address.setCustomerId(resultSet.getInt(7));
         } catch (SQLException e) {
             System.out.println("Error getting customer address: " + e.getMessage());
+        } finally {
+            closeConnection();
         }
         return address;
     }
