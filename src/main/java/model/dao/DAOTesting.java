@@ -1,9 +1,6 @@
 package model.dao;
 
-import control.entities.Customer;
-import control.entities.Employee;
-import control.entities.Summary;
-import control.entities.Visit;
+import control.entities.*;
 import model.database.OracleConnection;
 
 import java.sql.SQLException;
@@ -12,9 +9,6 @@ import java.util.List;
 
 public class DAOTesting {
     public static void main(String[] args) {
- 
-    	
-    	
         /*
         Para utilizar cada método de las distintas funciones sólo debes quitar el comentario de la línea.
         En cada método se observa la forma de trabajo del DAO.
@@ -89,11 +83,13 @@ public class DAOTesting {
             case 1:
                 solicitarVisitaALaEmpresa(4);
                 pagarDeuda();
+                obtenerPagos();
                 break;
             case 2:
                 verVisitasListadas(5);
                 solicitarResumen(2); // y actualizar a la vez
                 finalizarVisita();
+                obtenerDireccion(2);
                 actividadesVisita(36);
                 break;
             default:
@@ -127,6 +123,12 @@ public class DAOTesting {
         actualizarResumen(summary);
     }
 
+    private static void obtenerDireccion(int visitId) {
+        prueba("SOLICITAR DIRECCIÓN");
+        Address address = new EmployeeDAO().getAddress(visitId);
+        System.out.println("ID: " + address.getId() + "\tCalle: " + address.getStreet() + "\tNúmero: " + address.getNumber());
+    }
+
     private static void actualizarResumen(Summary summary) {
         prueba("ACTUALIZAR RESUMEN");
         summary.setDescription("ESTA VISITA SALIÓ EXCELENTE");
@@ -156,7 +158,15 @@ public class DAOTesting {
 
     private static void pagarDeuda() {
         prueba("PAGAR DEUDA");
-        new CustomerDAO().pay(80);
+        new CustomerDAO().pay(25);
+    }
+
+    private static void obtenerPagos() {
+        prueba("OBTENER PAGOS");
+        List<Payment> payments = new CustomerDAO((Customer) new CustomerDAO().read(5)).getPayments();
+        for (Payment pay: payments) {
+            System.out.println("ID: " + pay.getId() + "\tMonto: " + pay.getAmount() + "\tEstado: " + pay.isReady());
+        }
     }
 
     private static void verVisitasListadas(int id) {
