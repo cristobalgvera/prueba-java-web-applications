@@ -1,5 +1,8 @@
 package control.servlets;
 
+import control.entities.Customer;
+import control.entities.Employee;
+import control.entities.Payment;
 import model.dao.CustomerDAO;
 import model.dao.EmployeeDAO;
 
@@ -9,26 +12,42 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 
-@WebServlet("/validation")
+@WebServlet(value = "/validation", name = "Validation")
 public class Validation extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("user");
         String password = request.getParameter("password");
         String loginClass = request.getParameter("loginClass");
-//        System.out.println(email + " - " + password + " - " + loginClass);
+        HttpSession session = request.getSession();
         Object user = null;
         RequestDispatcher requestDispatcher = null;
         try {
             if (loginClass.equals("customer")) {
                 user = new CustomerDAO().exists(email, password);
+                List<Payment> payments = new CustomerDAO((Customer) user).getPayments();
+                // TODO Order payments by ID
+                session.setAttribute("payments", payments);
                 requestDispatcher = request.getRequestDispatcher("jsp/client-home.jsp");
             } else {
                 user = new EmployeeDAO().exists(email, password);
+                session.setAttribute("allVisits", new EmployeeDAO((Employee) user).allVisits());
+                session.setAttribute("pendingVisits", new EmployeeDAO((Employee) user).pendingVisits());
                 requestDispatcher = request.getRequestDispatcher("jsp/employee-home.jsp");
             }
             user.getClass();
@@ -36,7 +55,7 @@ public class Validation extends HttpServlet {
             user = -1;
             requestDispatcher = request.getRequestDispatcher("html/error.html");
         } finally {
-            request.getSession().setAttribute("user", user);
+            session.setAttribute("user", user);
             requestDispatcher.forward(request, response);
         }
     }
@@ -45,5 +64,4 @@ public class Validation extends HttpServlet {
             throws ServletException, IOException {
         doGet(request, response);
     }
-
 }
