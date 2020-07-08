@@ -9,16 +9,15 @@
 	rel="stylesheet" type="text/css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/style.css">
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script type="text/javascript"
-	src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<% int activeTab = (request.getAttribute("activeTab") != null) ? (int) request.getAttribute("activeTab") : 0; %>
+<script>
+
 	$(function() {
-		$("#tabs").tabs();
+		$("#tabs").tabs({
+			active :{active:<%=activeTab%>}
+	});
 	});
 </script>
 <script>
@@ -26,66 +25,116 @@
 		$("#dialog").dialog();
 	});
 </script>
-
 </head>
 <title>Home Employee</title>
 </head>
 <body>
 	<div class="logo">
-		<img src="<%=request.getContextPath()%>/resources/img/logo-A.png">
+		<img src="../resources/img/logo-A.png" alt="logo">
 	</div>
 	<div class="saludo">
 		<h2>Bienvenido ${user.getName()} !</h2>
 	</div>
 
 	<div id="tabs">
-		<!-- inicio de listas	 -->
 		<ul>
-			<li><a href="#tabs-1" onclick="hola()">Visitas pendientes</a></li>
-			<li><a href="#tabs-2">Revisar visita</a></li>	
-<!-- 			Agregar:
-				 1.Finalizar visita
-				 	11.ingresar resume (view)
-				 	12.Resume de visita
- 						121.modificar resume
-				 2.Actualizar visita -->
-
-			<li><a href="#tabs-2">Historial de visitas</a></li>
-			
+			<li><a href="#tabs-1">Gastionar visitas</a></li>
+			<li><a href="#tabs-3">Visualizar pagos</a></li>
 
 		</ul>
-		<!-- 		1 -->
-		<div id="tabs-1">
-			<h3>Visitas pendientes</h3>
-		</div>
+	</div>
 
-		<!-- 		2 -->
-		<div id="tabs-2">
-			<h3>Visualización de asesoría</h3>
+	<div id="tabs-1">
+		<h3>Gastionar visitas</h3>
 
-			<p>El ID del informe realizado es ${visit.getId()}</p>
-			<br>
-			<p>La fecha del pago es ${payment.getDate()}</p>
-			<br>
-			<p>El monto de la asesoría es ${payment.getAmount()}</p>
-			<br>
-			<p>El estado del pago está ${payment.getReady()}</p>
-			<p>El ID del informe realizado es ${summary.getId()}</p>
-			<br>
-			<p>La fecha de la asesoría fue ${summary.getDate()}</p>
-			<br>
-			<p>Detalle: ${summary.getDescription()}</p>
-			<br>
-		</div>
+		<table>
+			<thead>
+				<tr>
+					<th>ID visitas</th>
+					<th>Fecha visitas</th>
+					<th>Colaborador</th>
+					<th>Cliente</th>
+			</thead>
+
+			<tbody>
+				<c:forEach var="visit" items="${allVisits}">
+
+					<tr>
+
+						<td><c:out value="${visit.getId()}" /></td>
+						<td><c:out value="${visit.getDate()}" /></td>
+						<td><c:out value="${visit.getEmployeeId()}" /></td>
+						<td><c:out value="${visit.getCustomerId()}" /></td>
+						<td>
+						<form action="employee-home" method="GET">
+						<button type="submit" name="details">Detalles</button>
+						<button type="submit" name="finish">Finalizar</button>
+						<input type="hidden" name="idvisithidden" value="${visit.getId()}"></input>
+						</form>
+						</td>
+
+
+
+
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
+
+
+
+	
+		
+		
+
+
 
 		<!-- 		3 -->
 		<div id="tabs-3">
 			<h3>Realizar pagos</h3>
 
-			<p>Indicar el ID de la asesoría a pagar</p>
-			<br> <input type="number" name="id" required
-				placeholder="Número de asesoría">
-		</div>
+
+
+
+
+	<div id="tabs-3">
+
+		<h3>Visualización de pagos</h3>
+
+		<table>
+			<thead>
+				<tr>
+					<th>Nº de transación del pago</th>
+					<th>Fecha del pago</th>
+					<th>Valor total</th>
+					<th>Estado del pago</th>
+				</tr>
+			</thead>
+
+			<tbody>
+
+				<c:forEach var="pay" items="${payment}">
+
+					<tr>
+						<td><c:out value="${pay.getId()}" /></td>
+						<td><c:out value="${pay.getDate()}" /></td>
+						<td><c:out value="${pay.getAmount()}" /></td>
+						<td><c:out value="${pay.isReady() ? 'Pagado': 'No Pagado'}" /></td>
+					</tr>
+
+				</c:forEach>
+			</tbody>
+
+		</table>
+
+
+	</div>
+
+	</div>
+
+
+
 
 <!-- 4 -->
 		<div id="tabs-4">
@@ -121,6 +170,11 @@
 		</p>
 	</footer>
 
+	<script type="text/javascript">
+		function hola() {
+			$(this).html("Hola bebe");
+		}
+	</script>
 </body>
 
 </html>
