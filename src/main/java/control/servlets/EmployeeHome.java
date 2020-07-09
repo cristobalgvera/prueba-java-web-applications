@@ -51,6 +51,7 @@ public class EmployeeHome extends HttpServlet {
                 address = new EmployeeDAO().getAddress(visit.getId());
                 summary = new EmployeeDAO().getSummary(visit.getId());
                 customer = new EmployeeDAO().getVisitsCustomer(visit.getId());
+                payment = new EmployeeDAO().getPayment(visit.getId());
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + action);
