@@ -117,6 +117,15 @@ ul li a{
 width: 30%;
 margin: auto;
 }
+#textarea{
+	width:50%;
+	height:150px;
+}
+.loquesea{
+	width:80%;
+	margin:auto;
+}
+
 footer{
 
 text-align:center;
@@ -126,13 +135,18 @@ font-size: 12px;
 }
 
 .ratings {
+	display:flex;
   list-style-type: none;
   margin: 0;
   padding: 0;
   width: 100%;
   direction: rtl;
-  text-align: left;
+  text-align: center;
+  justify-content:center;
 }
+.ratings ul{
+	display: block;
+ }
 
 .star {
   position: relative;
@@ -144,9 +158,9 @@ font-size: 12px;
 
 .star:before {
   content: '\2605';
-  width: 60px;
-  height: 60px;
-  font-size: 60px;
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
 }
 
 .star:hover,

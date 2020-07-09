@@ -16,23 +16,25 @@
 	<div class="logo">
 		<img src="../resources/img/logo-A.png" alt="logo">
 	</div>
+	<br>
+	<br>
+	<br>
+	
+	
+<div align="center" class="loquesea"> 
 
 	<h4>Finalización de visita</h4>
 
 	<p>Para finalizar una visita, primero debe completar un cuadro
 		informativo sobre las actividades realizadas durante el proceso de
 		asesoría.</p>
-	<p>Además, deberá evaluar la satisfacción del proceso</p>
+	<p>Además, deberá evaluar la satisfacción del proceso.</p>
 
 
 
 
 	<form action="employee-home" method="GET">
-		<textarea placeholder="Detalle las actividades" required></textarea>
-		<button type="submit" name="finish">Finalizar</button>
-		<button onclick="location.href='employee-home.jsp'">Volver</button>
-		<input type="hidden" name="hiddenfinish">
-		<input type="hidden" name="rating" value="1" id="pii" >
+		<textarea id="textarea" placeholder="Detalle las actividades" required></textarea>
 		<ul class="ratings">
 			<li class="star" name="default" value="10"></li>
 			<li class="star" name="default" value="9"></li>
@@ -45,11 +47,13 @@
 			<li class="star" name="default" value="2"></li>
 			<li class="star" name="default" value="1"></li>
 		</ul>
+		<button type="submit" name="finish">Finalizar</button>
+		<button onclick="location.href='employee-home.jsp'">Volver</button>
+		<input type="hidden" name="hiddenfinish">
+		<input type="hidden" name="rating" value="1" id="pii" >
+		
 	</form>
-
-
-
-
+</div>
 	<footer>
 		<p>
 			Asesorías digitales <br> Todos los derechos reservados.
