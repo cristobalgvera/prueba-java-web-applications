@@ -3,6 +3,7 @@ package control.servlets;
 import control.entities.Customer;
 import control.entities.Employee;
 import control.entities.Payment;
+import control.entities.Visit;
 import model.dao.CustomerDAO;
 import model.dao.EmployeeDAO;
 
@@ -41,8 +42,11 @@ public class Validation extends HttpServlet {
             if (loginClass.equals("customer")) {
                 user = new CustomerDAO().exists(email, password);
                 List<Payment> payments = new CustomerDAO((Customer) user).getPayments();
-                // TODO Order payments by ID
+                List<Visit> visits = new CustomerDAO((Customer) user).getVisits();
+                session.setAttribute("visits", visits);
                 session.setAttribute("payments", payments);
+                payments = new CustomerDAO((Customer) user).getDebts();
+                session.setAttribute("debts", payments);
                 requestDispatcher = request.getRequestDispatcher("jsp/client-home.jsp");
             } else {
                 user = new EmployeeDAO().exists(email, password);
