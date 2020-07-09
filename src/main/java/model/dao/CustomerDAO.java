@@ -138,7 +138,7 @@ public class CustomerDAO extends DAO {
         }
     }
 
-    public void setAddress(Address address) {
+    public Address setAddress(Address address) {
         sql = "INSERT INTO ADDRESSES (COUNTRY, CITY, STREET, \"number\", BLOCK, CUSTOMERS_CUSTOMER_ID) " +
                 "VALUES (?,?,?,?,?,?)";
         try {
@@ -150,9 +150,16 @@ public class CustomerDAO extends DAO {
             preparedStatement.setString(5, address.getBlock());
             preparedStatement.setInt(6, address.getCustomerId());
             preparedStatement.executeUpdate();
+            preparedStatement.close();
+            sql = "SELECT * FROM ADDRESSES WHERE ADDRESS_ID = (SELECT MAX(ADDRESS_ID) FROM ADDRESSES)";
+            ResultSet resultSet = connection.getConnection().prepareStatement(sql).executeQuery();
+            resultSet.next();
+            address.setId(resultSet.getInt(1));
+            address.setCustomerId(resultSet.getInt(7));
         } catch (SQLException e) {
             System.out.println("Error setting address: " + e.getMessage());
         }
+        return address;
     }
 
     public Visit requestVisit(List<String> activities, int price) {

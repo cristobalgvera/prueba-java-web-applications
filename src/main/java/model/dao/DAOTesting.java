@@ -31,6 +31,29 @@ public class DAOTesting {
         *------------------------
          */
 
+//        int id, String name, String lastName, String email, String password, String phoneNumber
+        int id = -1;
+        String name = "Alejandro";
+        String lastName = "Silva";
+        String email = "alejandro.silva@gmail.com";
+        String password = "12345";
+        String phoneNumber = "+56991827364";
+        Customer customer = new Customer(id, name, lastName, email, password, phoneNumber);
+//        int id, int number, int customerId, String country, String city, String street, String block
+        id = -1;
+        int customerId = -1;
+        String country = "Chile";
+        String city = "Temuco";
+        String street = "Olimpia";
+        int number = 1039;
+        String block = "C";
+        Address address = new Address(id, number, customerId, country, city, street, block);
+        try {
+            createCustomer(customer, address);
+        } catch (SQLException throwables) {
+            System.out.println("Error creating customer and setting address");
+        }
+
 //        Object test = null;
 //        try {
 //            test = (Customer) new CustomerDAO().exists("cristobalgajardo.v@gmail.com","12345");
@@ -42,21 +65,37 @@ public class DAOTesting {
 //        }
 //        System.out.println(test.getClass());
 
-        prueba("CUSTOMERS");
-        try {
-            probarBD(1);
-        } catch (SQLException throwables) {
-            System.out.println("ERROR: CUSTOMERS");
-            throwables.printStackTrace();
-        }
+//        prueba("CUSTOMERS");
+//        try {
+//            probarBD(1);
+//        } catch (SQLException throwables) {
+//            System.out.println("ERROR: CUSTOMERS");
+//            throwables.printStackTrace();
+//        }
+//
+//        prueba("EMPLOYEES");
+//        try {
+//            probarBD(2);
+//        } catch (SQLException throwables) {
+//            System.out.println("ERROR: EMPLOYEES");
+//            throwables.printStackTrace();
+//        }
+    }
 
-        prueba("EMPLOYEES");
-        try {
-            probarBD(2);
-        } catch (SQLException throwables) {
-            System.out.println("ERROR: EMPLOYEES");
-            throwables.printStackTrace();
-        }
+    private static void createCustomer(Customer customer, Address address) throws SQLException {
+        prueba("CREAR CLIENTE");
+        DAO customerDAO = new CustomerDAO(customer);
+        customer = (Customer) customerDAO.create();
+        System.out.println("ID Cliente: " + customer.getId());
+        createAddress(customer, address);
+        System.out.println("Registro creado con éxito");
+    }
+
+    private static void createAddress(Customer customer, Address address) {
+        prueba("CREAR DIRECCIÓN PARA EL CLIENTE");
+        address.setCustomerId(customer.getId());
+        address = new CustomerDAO().setAddress(address);
+        System.out.println("ID Dirección: " + address.getId());
     }
 
     private static void probarBD(int dbTest) throws SQLException {
