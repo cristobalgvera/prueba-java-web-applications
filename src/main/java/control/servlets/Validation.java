@@ -46,6 +46,7 @@ public class Validation extends HttpServlet {
                 requestDispatcher = request.getRequestDispatcher("jsp/client-home.jsp");
             } else {
                 user = new EmployeeDAO().exists(email, password);
+                session.setAttribute("payments", new EmployeeDAO((Employee) user).getPayments());
                 session.setAttribute("allVisits", new EmployeeDAO((Employee) user).allVisits());
                 session.setAttribute("pendingVisits", new EmployeeDAO((Employee) user).pendingVisits());
                 requestDispatcher = request.getRequestDispatcher("jsp/employee-home.jsp");

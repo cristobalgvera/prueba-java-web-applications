@@ -60,25 +60,17 @@ public class DAOTesting {
     }
 
     private static void probarBD(int dbTest) throws SQLException {
-        prueba("LEER TODA LA BASE DE DATOS");
-        leerTodaLaBD(dbTest);
-//        leerTodaLaBDAlternativa();
-        prueba("LEER UN REGISTRO ESPECÍFICO");
-        leerUnRegistro(dbTest, 5);
-//        leerUnRegistroAlternativa(5);
-//        borrarRegistro(1, 5);
-//
-//        Requiere un objeto previo con datos
-        prueba("CREAR UN REGISTRO");
-        crearUnRegistro(dbTest);
-//        crearUnRegistroAlternativa();
-        prueba("ACTUALIZAR UN REGISTRO");
-        actualizarRegistro(dbTest, 5);
-//        actualizarRegistroAlternativa(5);
-//
-//        Requiere mail y password (login)
-        prueba("COMPROBAR EXISTENCIA DE UN REGISTRO");
-        existeRegistro(dbTest);
+//        prueba("LEER TODA LA BASE DE DATOS");
+//        leerTodaLaBD(dbTest);
+//        prueba("LEER UN REGISTRO ESPECÍFICO");
+//        leerUnRegistro(dbTest, 5);
+////        borrarRegistro(1, 5);
+//        prueba("CREAR UN REGISTRO");
+//        crearUnRegistro(dbTest);
+//        prueba("ACTUALIZAR UN REGISTRO");
+//        actualizarRegistro(dbTest, 5);
+//        prueba("COMPROBAR EXISTENCIA DE UN REGISTRO");
+//        existeRegistro(dbTest);
         switch (dbTest) {
             case 1:
                 solicitarVisitaALaEmpresa(4);
@@ -93,9 +85,19 @@ public class DAOTesting {
                 obtenerDireccion(2);
                 actividadesVisita(36);
                 clienteVisita(2);
+                obtenerPagosVisitas();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + dbTest);
+        }
+    }
+
+    private static void obtenerPagosVisitas() {
+        prueba("Pagos visitas employee ID " + 2);
+        Employee employee = (Employee) new EmployeeDAO().read(2);
+        List<Payment> payments = new EmployeeDAO(employee).getPayments();
+        for (Payment payment : payments) {
+            System.out.println("ID: " + payment.getId() + "\tFecha: " + payment.getDate());
         }
     }
 
