@@ -19,7 +19,8 @@
 	<br>
 	<br>
 	<br>
-	<ol>
+
+	<ol class="loquesea">
 	<li>El número de identificación de la visita es ${visit.getId()}</li>
 	<li>Fecha de la visita ${visit.getDate()}</li>
 	<li>Actividades propuestas: ${visit.getActivities()}</li>
@@ -45,7 +46,7 @@
 	<li>Evaluación de satisfación de la visita ${summary.getRating()}</li>
 	
 	</ol>
-	<form action="employee-home" method="GET">
+	<form class=botonesC action="employee-home" method="GET">
 		<button onclick="location.href='employee-home-finish.jsp'">Finalizar</button>
 		<button onclick="location.href='employee-home.jsp'">Volver</button>
 		</form>

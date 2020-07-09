@@ -69,10 +69,13 @@
 							<td><c:out value="${visit.getCustomerId()}" /></td>
 							<td>
 								<form action="employee-home" method="GET">
-									<button type="submit" name="details">Detalles</button>
-									<button type="submit" name="finish">Finalizar</button>
+								<div id="pipopu">
+									<button onclick="location.href='employee-home-details.jsp'" type="submit" name="details">Detalles</button>
+									<button onclick="location.href='employee-home-finish.jsp'" type="submit" name="finish">Finalizar</button>
+										</div>
 									<input type="hidden" name="idvisithidden"
 										value="${visit.getId()}"></input>
+									
 								</form>
 							</td>
 

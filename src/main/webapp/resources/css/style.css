@@ -10,10 +10,11 @@
   .login {
     margin:0 auto;
     max-width:500px;
-  
-
   }
   
+  h3{
+  text-align:center;
+  }
   .sinborde{
   border:none;
   }
@@ -124,6 +125,14 @@ margin: auto;
 .loquesea{
 	width:80%;
 	margin:auto;
+}
+.botonesC{
+	display:flex;
+	justify-content:center;
+}
+#pipopu{
+	display:flex;
+	justify-content:space-evenly;
 }
 
 footer{
