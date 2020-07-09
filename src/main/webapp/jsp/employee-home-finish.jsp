@@ -48,8 +48,9 @@
 			<li class="star" name="default" value="1"></li>
 		</ul>
 		<button type="submit" name="finish">Finalizar</button>
-		<button onclick="location.href='employee-home.jsp'">Volver</button>
-		<input type="hidden" name="hiddenfinish">
+		<button onclick="location.href='jsp/employee-home.jsp'">Volver</button>
+		 <input type="hidden" name="idvisithidden"
+                                   value="${visit.getId()}"/>
 		<input type="hidden" name="rating" value="1" id="pii" >
 		
 	</form>

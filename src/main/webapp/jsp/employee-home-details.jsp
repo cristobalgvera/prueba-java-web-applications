@@ -47,10 +47,12 @@
 	
 	</ol>
 	<form class=botonesC action="employee-home" method="GET">
-		<button onclick="location.href='employee-home-finish.jsp'">Finalizar</button>
-		<button onclick="location.href='employee-home.jsp'">Volver</button>
+		<button value="finish" name="submit-btn">Finalizar</button>
+		  <input type="hidden" name="idvisithidden"
+                                   value="${visit.getId()}"/>
+		
 		</form>
-
+<button onclick="location.href='jsp/employee-home.jsp'">Volver</button>
 	<footer>
 		<p>
 			Asesorías digitales <br> Todos los derechos reservados.
