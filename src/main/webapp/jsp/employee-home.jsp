@@ -33,13 +33,11 @@
 <div class="logout" align="right">
    <form  action="employee-home" method="GET">
 	<button id="logout" type="submit" name="submit-btn" value="logout">Cerrar sesión</button>
-	<input type="hidden" name="idvisithidden" value="${visit.getId()}"></input>
 	</form>
 </div>
 <div class="logo">
     <img src="./resources/img/logo-A.png" alt="logo">
 </div>
-
 <div class="saludo">
     <h2>Bienvenido ${user.getName()} !</h2>
 </div>
@@ -50,7 +48,7 @@
     </ul>
     <div id="tabs-1">
         <h3>Gastionar visitas</h3>
-        <table align="center">
+        <table class="sinborde" align="center">
             <thead>
             <tr>
                 <th>ID visita</th>
@@ -60,10 +58,10 @@
             <tbody>
             <c:forEach var="visit" items="${allVisits}">
                 <tr>
-                    <td><c:out value="${visit.getId()}"/></td>
-                    <td><c:out value="${visit.getDate()}"/></td>
-                    <td><c:out value="${visit.getCustomerId()}"/></td>
-                    <td>
+                    <td class="sinborde"><c:out value="${visit.getId()}"/></td>
+                    <td class="sinborde"><c:out value="${visit.getDate()}"/></td>
+                    <td class="sinborde"><c:out value="${visit.getCustomerId()}"/></td>
+                    <td class="sinborde">
                         <form class="formbtn" action="employee-home" method="GET">
                             <button  type="submit" name="submit-btn" value="details">Detalles</button>
                             <button type="submit" name="submit-btn" value="finish">Finalizar</button>
@@ -77,7 +75,7 @@
     </div>
     <div id="tabs-2">
         <h3>Visualización de pagos</h3>
-        <table align="center">
+        <table class="sinborde" align="center">
             <thead>
             <tr>
                 <th>Nº de transación del pago</th>
@@ -89,10 +87,10 @@
             <tbody>
             <c:forEach var="pay" items="${payments}">
                 <tr>
-                    <td><c:out value="${pay.getId()}"/></td>
-                    <td><c:out value="${pay.getDate()}"/></td>
-                    <td><c:out value="${pay.getAmount()}"/></td>
-                    <td><c:out value="${pay.isReady() ? 'Pagado': 'No Pagado'}"/></td>
+                    <td class="sinborde"><c:out value="${pay.getId()}"/></td>
+                    <td class="sinborde"><c:out value="${pay.getDate()}"/></td>
+                    <td class="sinborde"><c:out value="${pay.getAmount()}"/></td>
+                    <td class="sinborde"><c:out value="${pay.isReady() ? 'Pagado': 'No Pagado'}"/></td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -104,6 +102,5 @@
         Asesorías digitales <br> Todos los derechos reservados.
     </p>
 </footer>
-
 </body>
 </html>

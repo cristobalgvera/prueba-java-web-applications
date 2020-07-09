@@ -64,10 +64,13 @@ public class EmployeeHome extends HttpServlet {
                 new EmployeeDAO().setSummary(summaryUpdate);
                 break;
             case "terminate":
-                // TODO Complete terminate section
                 requestDispatcher = request.getRequestDispatcher("jsp/employee-home");
                 visit = new EmployeeDAO().getVisit(hiddenId);
                 new EmployeeDAO().endVisit(visit.getId());
+                break;
+            case "logout":
+                requestDispatcher = request.getRequestDispatcher("index.jsp");
+                session.invalidate();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + action);

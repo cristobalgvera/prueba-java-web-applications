@@ -63,6 +63,10 @@ public class CustomerHome extends HttpServlet {
             case "go-back":
                 requestDispatcher = request.getRequestDispatcher("jsp/client-home.jsp");
                 break;
+            case "logout":
+                requestDispatcher = request.getRequestDispatcher("index.jsp");
+                session.invalidate();
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + action);
         }

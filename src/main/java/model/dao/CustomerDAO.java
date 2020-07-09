@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +14,6 @@ import java.util.Random;
 public class CustomerDAO extends DAO {
     Customer employee;
     List<Customer> customers;
-
 
     public CustomerDAO() {
         customers = new ArrayList<>();
