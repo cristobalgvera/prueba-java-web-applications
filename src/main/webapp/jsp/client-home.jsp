@@ -28,10 +28,6 @@
 			$("#dialog").dialog();
 		});
 	});
-
-	// 	$(function open(){
-	// 		$( "#dialog" ).dialog( "open" );
-	// 		});
 </script>
 
 </head>
@@ -39,6 +35,15 @@
 </head>
 
 <body>
+<!-- //////////////////////////////////////////////////////////// -->
+	<div class="logout" align="right">
+		<form action="employee-home" method="GET">
+			<button id="logout" type="submit" name="submit-btn" value="logout">Cerrar
+				sesión</button>
+			<input type="hidden" name="idvisithidden" value="${visit.getId()}"></input>
+		</form>
+	</div>
+<!-- //////////////////////////////////////////////////////////// -->
 	<div class="logo">
 		<img src="<%=request.getContextPath()%>/resources/img/logo-A.png">
 	</div>
@@ -46,6 +51,8 @@
 		<h2>Hola, ${user.getName()} !</h2>
 	</div>
 
+<!-- //////////////////////////////////////////////////////////// -->
+	<!-- Tabs -->
 	<div id="tabs">
 		<ul>
 			<li><a href="#tabs-1">Solicitar asesoría</a></li>
@@ -54,7 +61,8 @@
 			<li><a href="#tabs-4">Revisar pagos</a></li>
 			<li><a href="#tabs-5">Ayuda</a></li>
 		</ul>
-
+		
+<!-- //////////////////////////////////////////////////////////// -->
 		<!--         1 -->
 		<div align="center" id="tabs-1">
 
@@ -70,45 +78,51 @@
 					type="submit" id="envio" value="Enviar"">
 			</form>
 		</div>
-
+		
+<!-- //////////////////////////////////////////////////////////// -->
 		<!--         2 -->
 		<div id="tabs-2">
-			<h3>Visualización de Asesoría</h3>
-			<ol>
-				<c:set var="idvisit" value="${0}" />
-				<c:forEach var="visit" items="${visit}">
-					<c:set var="idvisit" value="${idvisit+1}" />
-					<li><c:out value="${idvisit}" />
-						<div id="dialogo" title="Basic dialog">
-							<p>
-								Número de asesoría:
-								<c:out value="${visit.getId()}" />
-								<br> Nº de colaborador:
-								<c:out value="${employee.getName()}" />
-								&nbsp;
-								<c:out value="${employee.getLastName()}" />
+			<div align="center">
+				<h3>Visualización de Asesoría</h3>
+			</div>
+			<div id="viewTableAs">
+				<ol>
+					<c:set var="idvisit" value="${0}" />
+					<c:forEach var="visit" items="${visit}">
+						<c:set var="idvisit" value="${idvisit+1}" />
+						<li><c:out value="${idvisit}" />
+							<div id="dialogo" title="Basic dialog">
+								<p>
+									Número de asesoría:
+									<c:out value="${visit.getId()}" />
+									<br> <br> Nº de colaborador:
+									<c:out value="${employee.getName()}" />
+									&nbsp;
+									<c:out value="${employee.getLastName()}" />
 
-								<br> Fecha de realización:
-								<c:out value="${visit.getDate()}" />
-								<br> Nº confirmación de pago:
-								<c:out value="${visit.getPaymentId()}" />
-								<br> Actividades realizadas:
-								<c:out value="${visit.getActivities()}" />
-								<br>
-							</p>
-						</div></li>
-				</c:forEach>
-			</ol>
-
+									<br> <br> Fecha de realización:
+									<c:out value="${visit.getDate()}" />
+									<br> <br> Nº confirmación de pago:
+									<c:out value="${visit.getPaymentId()}" />
+									<br> <br> Actividades realizadas:
+									<c:out value="${visit.getActivities()}" />
+									<br>
+								</p>
+							</div></li>
+					</c:forEach>
+				</ol>
+			</div>
 		</div>
-
+		
+<!-- //////////////////////////////////////////////////////////// -->
 		<!--         3 -->
+		<div align="center" id="tabs-3">
 
-		<div id="tabs-3">
 			<h3>Realizar pagos</h3>
+
 			<p>Indicar el ID de la asesoría a pagar</p>
-			<br> <input type="number" name="id" required
-				placeholder="Número de asesoría">
+			<input type="number" name="id3" required
+				placeholder="Número de asesoría"><br> <br>
 			<table>
 				<thead>
 					<tr>
@@ -125,23 +139,26 @@
 							<td><c:out value="${ntransaccion}" /></td>
 							<td><c:out value="${pay.getDate()}" /></td>
 							<td><c:out value="${pay.getAmount()}" /></td>
+							<br>
 							<c:if test="${!pay.isReady()}">
-								<td class="sinborde">
+								<td class="sinborde"><br>
 									<form action="home" method="POST">
-										<input type="submit" name="btnpagar"> <input
+										<input type="submit" name="btnpagar"> <br> <input
 											type="hidden" name="idpago" value="${pay.getId()}">
-									</form>
-								</td>
+									</form></td>
 							</c:if>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</div>
-
+		
+<!-- //////////////////////////////////////////////////////////// -->
 		<!-- 		4 -->
-		<div id="tabs-4">
+		<div align="center" id="tabs-4">
+
 			<h3>Visualización de pagos</h3>
+
 			<table>
 				<thead>
 					<tr>
@@ -169,7 +186,8 @@
 			</table>
 
 		</div>
-
+		
+<!-- //////////////////////////////////////////////////////////// -->
 		<!-- 		5 -->
 		<div align="center" id="tabs-5">
 			<form class="clientformayuda" action="actions" method="POST">

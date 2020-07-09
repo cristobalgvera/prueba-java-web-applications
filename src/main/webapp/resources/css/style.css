@@ -26,6 +26,69 @@ body {
   }
   /* .login-header h1 {
      text-shadow: 0px 5px 15px #000; */
+.login-form {
+	border: .5px solid #fff;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px #000;
+}
+
+.login-form h3 {
+	text-align: left;
+	margin-left: 40px;
+	color: #fff;
+}
+
+.login-form {
+	box-sizing: border-box;
+	padding-top: 15px;
+	padding-bottom: 10%;
+	margin: 5% auto;
+	text-align: center;
+}
+
+.login input[type="text"], .login input[type="password"] {
+	max-width: 400px;
+	width: 80%;
+	line-height: 3em;
+	font-family: 'Ubuntu', sans-serif;
+	margin: 1em 2em;
+	border-radius: 5px;
+	border: 2px solid #f2f2f2;
+	outline: none;
+	padding-left: 10px;
+}
+
+.login-form input[type="button"] {
+	height: 30px;
+	width: 100px;
+	background: #fff;
+	border: 1px solid #f2f2f2;
+	border-radius: 20px;
+	color: slategrey;
+	text-transform: uppercase;
+	font-family: 'Ubuntu', sans-serif;
+	cursor: pointer;
+}
+
+ul {
+	display: flex;
+	justify-content: space-evenly;
+	list-style: none;
+	align-items: center;
+	height: 100px;
+}
+
+ul li {
+	display: inline-block;
+}
+
+ul li a {
+	color: black;
+}
+
+.formayuda {
+	text-align: center;
+}
 
 .login {
     margin: 0 auto;
@@ -248,42 +311,60 @@ footer {
 
 /*   css tabs */
 #tabs {
-    width: 70%;
-    margin: 20px auto auto auto;
+	width: 70%;
+	margin: 20px auto auto auto;
 }
 
 .ui-tabs .ui-tabs-nav {
-    background: white;
-    border: none;
-    height: 100%;
-    justify-content: center;
+	background: white;
+	border: none;
+	height: 100%;
+	justify-content: center;
 }
 
 .ui-tabs .ui-tabs-nav li {
-    background: lightgray;
-
+	background: lightgray;
 }
 
 .ui-tabs li.ui-tabs-active {
-    background: orange;
-    border: none;
-    color: olive;
+	background: orange;
+	border: none;
+	color: olive;
 }
 
 /* Formulario clientes */
 .clientformayuda #nombre, #numero, #email, #direccion {
-    width: 50%;
-    margin: 2% auto auto auto;
-    height: 20px;
+	width: 50%;
+	margin: 2% auto auto auto;
+	height: 20px;
 }
 
 #comentarios {
-    width: 50%;
-    height: 150px;
-    margin: 2% auto auto auto;
+	width: 50%;
+	height: 150px;
+	margin: 2% auto auto auto;
 }
 
 #envio {
-    margin-top: 2%;
-    width: 20%;
+	margin-top: 2%;
+	width: 20%;
+}
+
+#viewTableAs {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+#dialog p c:out {
+	margin-bottom: 5px;
+}
+
+#id3{
+	margin-top: 2px;
+}
+
+#logout{
+	margin: 10px 20px 0px 0px;
+	background: white;
+	border: none;
 }
