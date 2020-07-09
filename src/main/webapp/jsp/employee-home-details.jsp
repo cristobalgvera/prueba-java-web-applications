@@ -13,13 +13,20 @@
 <title>Más detalles</title>
 </head>
 <body>
+<div class="logout" align="right">
+   <form  action="employee-home" method="GET">
+	<button id="logout" type="submit" name="submit-btn" value="logout">Cerrar sesión</button>
+	<input type="hidden" name="idvisithidden" value="${visit.getId()}"></input>
+	</form>
+</div>
 	<div class="logo">
-		<img src="../resources/img/logo-A.png" alt="logo">
+		<img src="./resources/img/logo-A.png" alt="logo">
 	</div>
 	<br>
 	<br>
 	<br>
-
+  
+	
 	<ol class="loquesea">
 	<li>El número de identificación de la visita es ${visit.getId()}</li>
 	<li>Fecha de la visita ${visit.getDate()}</li>
@@ -47,12 +54,11 @@
 	
 	</ol>
 	<form class=botonesC action="employee-home" method="GET">
-		<button value="finish" name="submit-btn">Finalizar</button>
-		  <input type="hidden" name="idvisithidden"
-                                   value="${visit.getId()}"/>
-		
+	<button name="submit-btn" value="go-back"  type="submit">Volver</button>
+	<button name="submit-btn" value="finish" type="submit">Finalizar</button>
+	<input type="hidden" name="idvisithidden" value="${visit.getId()}"/>
 		</form>
-<button onclick="location.href='jsp/employee-home.jsp'">Volver</button>
+		
 	<footer>
 		<p>
 			Asesorías digitales <br> Todos los derechos reservados.

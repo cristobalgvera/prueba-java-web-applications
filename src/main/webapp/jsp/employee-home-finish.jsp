@@ -1,5 +1,7 @@
+<%@page import="control.entities.Summary"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,13 +15,19 @@
 <title>Finalizar</title>
 </head>
 <body>
+<div class="logout" align="right">
+   <form  action="employee-home" method="GET">
+	<button id="logout" type="submit" name="submit-btn" value="logout">Cerrar sesión</button>
+	<input type="hidden" name="idvisithidden" value="${visit.getId()}"></input>
+	</form>
+</div>
 	<div class="logo">
-		<img src="../resources/img/logo-A.png" alt="logo">
+		<img src="./resources/img/logo-A.png" alt="logo">
 	</div>
 	<br>
 	<br>
 	<br>
-	
+
 	
 <div align="center" class="loquesea"> 
 
@@ -34,8 +42,9 @@
 
 
 	<form action="employee-home" method="GET">
-		<textarea id="textarea" placeholder="Detalle las actividades" required></textarea>
-		<ul class="ratings">
+	<textarea id="textarea" placeholder="Detalle las actividades" required><c:out value="${summary.getDescription()}"/></textarea> 
+		<ul class="ratings" >
+		
 			<li class="star" name="default" value="10"></li>
 			<li class="star" name="default" value="9"></li>
 			<li class="star" name="default" value="8"></li>
@@ -47,25 +56,25 @@
 			<li class="star" name="default" value="2"></li>
 			<li class="star" name="default" value="1"></li>
 		</ul>
-		<button type="submit" name="finish">Finalizar</button>
-		<button onclick="location.href='jsp/employee-home.jsp'">Volver</button>
-		 <input type="hidden" name="idvisithidden"
-                                   value="${visit.getId()}"/>
-		<input type="hidden" name="rating" value="1" id="pii" >
+	<button name="submit-btn" value="save"  type="submit">Guardar</button>
+	<button name="submit-btn" value="terminate" type="submit">Finalizar</button>
+	<input type="hidden" name="idvisithidden" value="${visit.getId()}"/>
+	<input type="hidden" name="rating" value=1 id="rating">
 		
 	</form>
 </div>
 	<footer>
 		<p>
 			Asesorías digitales <br> Todos los derechos reservados.
-		</p>
+		</p> 
+		
 	</footer>
 	<script>
 		$(function() {
 			var star = '.star', selected = '.selected';
 
 			$(star).on('click', function() {
-				$("#pii").val($(this).val());
+				$("#rating").val(parseInt($(this).val(), 10));
 				
 				$(selected).each(function() {
 					$(this).removeClass('selected');
@@ -74,6 +83,22 @@
 			});
 
 		});
+		<% int rating = (int) ((Summary) (request.getAttribute("summary"))).getRating();%>
+	    $(document).ready(function () {
+	        let star = '.star', selected = '.selected';
+	        let rating = <%=rating%>
+	        if ((rating >0)) {
+	            $("ul li").each(function () {
+	                if (rating >=parseInt($(this).val(), 10)) {
+	                    $(this).addClass('selected');
+	                   
+	                }
+	            })
+	        } else {
+	            $("ul li").last().addClass('selected');
+	        }
+	    }); 
 	</script>
+	<p><%=rating%></p>
 </body>
 </html>

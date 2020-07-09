@@ -30,9 +30,16 @@
 <title>Home Employee</title>
 </head>
 <body>
-<div class="logo">
-    <img src="../resources/img/logo-A.png" alt="logo">
+<div class="logout" align="right">
+   <form  action="employee-home" method="GET">
+	<button id="logout" type="submit" name="submit-btn" value="logout">Cerrar sesión</button>
+	<input type="hidden" name="idvisithidden" value="${visit.getId()}"></input>
+	</form>
 </div>
+<div class="logo">
+    <img src="./resources/img/logo-A.png" alt="logo">
+</div>
+
 <div class="saludo">
     <h2>Bienvenido ${user.getName()} !</h2>
 </div>
@@ -43,12 +50,11 @@
     </ul>
     <div id="tabs-1">
         <h3>Gastionar visitas</h3>
-        <table>
+        <table align="center">
             <thead>
             <tr>
-                <th>ID visitas</th>
-                <th>Fecha visitas</th>
-                <th>Colaborador</th>
+                <th>ID visita</th>
+                <th>Fecha visita</th>
                 <th>Cliente</th>
             </thead>
             <tbody>
@@ -56,14 +62,12 @@
                 <tr>
                     <td><c:out value="${visit.getId()}"/></td>
                     <td><c:out value="${visit.getDate()}"/></td>
-                    <td><c:out value="${visit.getEmployeeId()}"/></td>
                     <td><c:out value="${visit.getCustomerId()}"/></td>
                     <td>
-                        <form action="employee-home" method="GET">
-                            <button type="submit" name="submit-btn" value="details">Detalles</button>
+                        <form class="formbtn" action="employee-home" method="GET">
+                            <button  type="submit" name="submit-btn" value="details">Detalles</button>
                             <button type="submit" name="submit-btn" value="finish">Finalizar</button>
-                            <input type="hidden" name="idvisithidden"
-                                   value="${visit.getId()}"/>
+                            <input type="hidden" name="idvisithidden" value="${visit.getId()}"/>
                         </form>
                     </td>
                 </tr>
@@ -73,7 +77,7 @@
     </div>
     <div id="tabs-2">
         <h3>Visualización de pagos</h3>
-        <table>
+        <table align="center">
             <thead>
             <tr>
                 <th>Nº de transación del pago</th>
