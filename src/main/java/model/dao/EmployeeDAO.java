@@ -191,6 +191,24 @@ public class EmployeeDAO extends DAO {
         return visitList;
     }
 
+    public Payment getPayment(int visitId) {
+        Payment payment = null;
+        sql = "SELECT * FROM PAYMENTS INNER JOIN VISITS V on PAYMENTS.PAYMENT_ID = V.PAYMENTS_PAYMENT_ID WHERE VISIT_ID = ?";
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, visitId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            payment = new Payment(resultSet.getInt(1), resultSet.getInt(3),
+                    resultSet.getString(4).equals("1"), simple.format(resultSet.getDate(2)));
+        } catch (SQLException e) {
+            System.out.println("Error getting payment: " + e.getMessage());
+        } finally {
+            closeConnection();
+        }
+        return payment;
+    }
+
     public List<Payment> getPayments() {
         List<Payment> payments = new ArrayList<>();
         sql = "SELECT * " +
@@ -208,6 +226,8 @@ public class EmployeeDAO extends DAO {
             }
         } catch (SQLException e) {
             System.out.println("Error getting payments: " + e.getMessage());
+        } finally {
+            closeConnection();
         }
         return payments;
     }
