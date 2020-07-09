@@ -84,6 +84,7 @@ public class DAOTesting {
                 solicitarVisitaALaEmpresa(4);
                 pagarDeuda();
                 obtenerPagos();
+                empleadoVisita(2);
                 break;
             case 2:
                 verVisitasListadas(5);
@@ -91,10 +92,17 @@ public class DAOTesting {
                 finalizarVisita();
                 obtenerDireccion(2);
                 actividadesVisita(36);
+                clienteVisita(2);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + dbTest);
         }
+    }
+
+    private static void empleadoVisita(int visitId) {
+        prueba("EMPLEADO VISITA ID " + visitId);
+        Employee employee = new CustomerDAO().getVisitsEmployee(visitId);
+        System.out.println("ID: " + employee.getId() + "\tNombre: " + employee.getName());
     }
 
     private static void prueba(String nombrePrueba) {
@@ -136,6 +144,12 @@ public class DAOTesting {
         new EmployeeDAO().setSummary(summary);
     }
 
+    private static void clienteVisita(int visitId) {
+        prueba("CLIENTE DE LA VISITA ID " + visitId);
+        Customer customer = new EmployeeDAO().getVisitsCustomer(visitId);
+        System.out.println("ID: " + customer.getId() + "\tNombre: " + customer.getName() + "\tApellido: " + customer.getLastName());
+    }
+
     private static void solicitarVisitaALaEmpresa(int id) {
         prueba("SOLICITAR VISITA A LA EMPRESA");
         Customer customer = (Customer) new CustomerDAO().read(id);
@@ -145,7 +159,7 @@ public class DAOTesting {
         activities.add("ACTIVIDAD 2");
         activities.add("ACTIVIDAD 3");
         activities.add("ACTIVIDAD 4");
-        Visit visit = customerDAO.requestVisit(activities, 150000);
+        Visit visit = customerDAO.requestVisit(activities, -90000);
         System.out.println("Customer ID: " + visit.getCustomerId() + "\tEmployee ID: " +
                 visit.getEmployeeId() + "\tFecha: " + (visit.getDate()) + "\tSegunda actividad: " +
                 visit.getActivity(1) + "\tPayment ID: " + visit.getPaymentId());
@@ -163,8 +177,8 @@ public class DAOTesting {
 
     private static void obtenerPagos() {
         prueba("OBTENER PAGOS");
-        List<Payment> payments = new CustomerDAO((Customer) new CustomerDAO().read(5)).getPayments();
-        for (Payment pay: payments) {
+        List<Payment> payments = new CustomerDAO((Customer) new CustomerDAO().read(7)).getPayments();
+        for (Payment pay : payments) {
             System.out.println("ID: " + pay.getId() + "\tMonto: " + pay.getAmount() + "\tEstado: " + pay.isReady());
         }
     }
@@ -186,6 +200,10 @@ public class DAOTesting {
         for (Visit visit : new EmployeeDAO((Employee) new EmployeeDAO().read(id)).pendingVisits()) {
             System.out.println("Customer ID: " + visit.getCustomerId() + "\tFecha: " + visit.getDate());
         }
+        System.out.println("\nVISITA ID 3\n");
+        Visit visit = new EmployeeDAO().getVisit(3);
+        System.out.println("Customer ID: " + visit.getCustomerId() + "\tFecha: " + visit.getDate());
+
     }
 
     private static void leerTodaLaBD(int dbTest) throws SQLException {
@@ -249,6 +267,7 @@ public class DAOTesting {
 
                 DAO customerDAO = new CustomerDAO(customer);
                 customer = (Customer) customerDAO.create();
+                crearDireccion(customer);
                 System.out.println("ID: " + customer.getId());
                 break;
             case 2:
@@ -262,6 +281,18 @@ public class DAOTesting {
                 throw new IllegalStateException("Unexpected value: " + dbTest);
         }
         System.out.println("Registro creado");
+    }
+
+    private static void crearDireccion(Customer customer) {
+        prueba("CREAR DIRECCIÓN PARA EL CLIENTE");
+        Address address = new Address();
+        address.setCountry("Estados Unidos");
+        address.setCity("Nueva York");
+        address.setStreet("5th Avenue");
+        address.setNumber(1059);
+        address.setBlock("B");
+        address.setCustomerId(customer.getId());
+        new CustomerDAO().setAddress(address);
     }
 
     private static void crearUnRegistroAlternativa() throws SQLException {
@@ -347,7 +378,7 @@ public class DAOTesting {
                     System.out.println("Correo: " + email + "\tContraseña: " + pass);
                     System.out.println("El usuario existe");
                     existeElUsuario = true;
-                } catch (ClassCastException | SQLException e) {
+                } catch (ClassCastException e) {
                     System.out.println("El usuario no existe");
                 }
 
