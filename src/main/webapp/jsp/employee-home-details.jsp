@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,14 +24,14 @@
 	<li>El número de identificación de la visita es ${visit.getId()}</li>
 	<li>Fecha de la visita ${visit.getDate()}</li>
 	<li>Actividades propuestas: ${visit.getActivities()}</li>
-	<li>Número de identificación del pago: ${pay.getId()}</li>
-	<li>Monto:$ ${pay.getAmount()}</li>
-	<li>Fecha del pago ${pay.getDate()}</li>
-	<li>Número de identificación del colaborador asignado: ${employee.getEmployeeId()}</li>
-	<li>Nombre del colaborador ${employee.getEmployeeName()}</li>
-	<li>Apellido del colaborador ${employee.getEmployeeLastName()}</li>
-	<li>Email del colaborador ${employee.getEmployeeEmail()}</li>
-	<li>Teléfono del colaborador ${employee.getEmployeePhoneNumber()}</li>
+	<li>Número de identificación del pago: ${payment.getId()}</li>
+	<li>Monto:$ ${payment.getAmount()}</li>
+	<li>Fecha del pago ${payment.getDate()}</li>
+	<li>Número de identificación del colaborador asignado: ${user.getId()}</li>
+	<li>Nombre del colaborador ${user.getName()}</li>
+	<li>Apellido del colaborador ${user.getLastName()}</li>
+	<li>Email del colaborador ${user.getEmail()}</li>
+	<li>Teléfono del colaborador ${user.getPhoneNumber()}</li>
 	<li>Número de indentificación del cliente ${customer.getId()}</li>
 	<li>Nombre del cliente ${customer.getName()}</li>
 	<li>Apellido del cliente ${customer.getLastName()}</li>

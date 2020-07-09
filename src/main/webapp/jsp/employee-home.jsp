@@ -60,8 +60,8 @@
                     <td><c:out value="${visit.getCustomerId()}"/></td>
                     <td>
                         <form action="employee-home" method="GET">
-                            <button type="submit" name="details">Detalles</button>
-                            <button type="submit" name="finish">Finalizar</button>
+                            <button type="submit" name="submit-btn" value="details">Detalles</button>
+                            <button type="submit" name="submit-btn" value="finish">Finalizar</button>
                             <input type="hidden" name="idvisithidden"
                                    value="${visit.getId()}"/>
                         </form>

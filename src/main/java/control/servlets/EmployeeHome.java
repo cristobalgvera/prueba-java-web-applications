@@ -35,7 +35,7 @@ public class EmployeeHome extends HttpServlet {
         Customer customer = null;
         Payment payment = null;
         int activeTab = 0;
-        int hiddenId = Integer.parseInt(null);
+        int hiddenId =-1;
         switch (action) {
             case "finish":
                 requestDispatcher = request.getRequestDispatcher("jsp/employee-home-delete.jsp");
