@@ -1,210 +1,231 @@
-@charset "UTF-8";body {
-    background:url('http://cdn.wallpapersafari.com/13/6/Mpsg2b.jpg');
-    margin:0px;
-    font-family: 'Ubuntu', sans-serif;
-      background-size: cover
-  }
-  h1, h2, h3, h4, h5, h6, a {
-    margin:0; padding:0;
-  }
-  .login {
-    margin:0 auto;
-    max-width:500px;
-  
+@charset "UTF-8"; 
 
-  }
-  
-  .sinborde{
-  border:none;
-  }
-  .login-header {
-    color:#fff;
-    text-align:center;
-    font-size:120%;
-  }
-  /* .login-header h1 {
+body {
+	background: url('http://cdn.wallpapersafari.com/13/6/Mpsg2b.jpg');
+	margin: 0px;
+	font-family: 'Ubuntu', sans-serif;
+	background-size: cover
+}
+
+h1, h2, h3, h4, h5, h6, a {
+	margin: 0;
+	padding: 0;
+}
+
+.login {
+	margin: 0 auto;
+	max-width: 500px;
+}
+
+.sinborde {
+	border: none;
+}
+
+.login-header {
+	color: #fff;
+	text-align: center;
+	font-size: 120%;
+}
+/* .login-header h1 {
      text-shadow: 0px 5px 15px #000; */
-
-  .login-form {
-    border:.5px solid #fff;
-
-    border-radius:10px;
-    box-shadow:0px 0px 10px #000;
-  }
-  .login-form h3 {
-    text-align:left;
-    margin-left:40px;
-    color:#fff;
-  }
-  .login-form {
-    box-sizing:border-box;
-    padding-top:15px;
-      padding-bottom:10%;
-    margin:5% auto;
-    text-align:center;
-  }
-  .login input[type="text"],
-  .login input[type="password"] {
-    max-width:400px;
-      width: 80%;
-    line-height:3em;
-    font-family: 'Ubuntu', sans-serif;
-    margin:1em 2em;
-    border-radius:5px;
-    border:2px solid #f2f2f2;
-    outline:none;
-    padding-left:10px;
-  }
-  .login-form input[type="button"] {
-    height:30px;
-    width:100px;
-    background:#fff;
-    border:1px solid #f2f2f2;
-    border-radius:20px;
-    color: slategrey;
-    text-transform:uppercase;
-    font-family: 'Ubuntu', sans-serif;
-    cursor:pointer;
-  }
-ul{
-  display: flex;
-  justify-content: space-evenly;
-  list-style: none;
-  align-items: center;
-  height: 100px
-;
-  
-}
-ul li{
-  display: inline-block;
-  
-  
-}
-ul li a{
-  color:black;
+.login-form {
+	border: .5px solid #fff;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px #000;
 }
 
-.formayuda{
-  text-align: center;
-  
-
-}
-.formayuda input{
-  display: block;
-  padding: 10px;
-  margin: 8px auto;
-}
-.formayuda .textarea{
-  padding: 50px 50px;
+.login-form h3 {
+	text-align: left;
+	margin-left: 40px;
+	color: #fff;
 }
 
-.logo img{
-  width: 150;
-  height: 150px;
-  margin: 0 auto;
-  display: flex;
+.login-form {
+	box-sizing: border-box;
+	padding-top: 15px;
+	padding-bottom: 10%;
+	margin: 5% auto;
+	text-align: center;
+}
 
+.login input[type="text"], .login input[type="password"] {
+	max-width: 400px;
+	width: 80%;
+	line-height: 3em;
+	font-family: 'Ubuntu', sans-serif;
+	margin: 1em 2em;
+	border-radius: 5px;
+	border: 2px solid #f2f2f2;
+	outline: none;
+	padding-left: 10px;
 }
-.saludo{
-  text-align: center;
-  padding-top: 20px;
-}
-  .contenedor{
-    text-align: center;
-   
-  }
-.contenedor button{
-width: 30%;
-margin: auto;
-}
-footer{
 
-text-align:center;
-text-decoration: none;
-font-weight: 100;
-font-size: 12px;
+.login-form input[type="button"] {
+	height: 30px;
+	width: 100px;
+	background: #fff;
+	border: 1px solid #f2f2f2;
+	border-radius: 20px;
+	color: slategrey;
+	text-transform: uppercase;
+	font-family: 'Ubuntu', sans-serif;
+	cursor: pointer;
+}
+
+ul {
+	display: flex;
+	justify-content: space-evenly;
+	list-style: none;
+	align-items: center;
+	height: 100px;
+}
+
+ul li {
+	display: inline-block;
+}
+
+ul li a {
+	color: black;
+}
+
+.formayuda {
+	text-align: center;
+}
+
+.formayuda input {
+	display: block;
+	padding: 10px;
+	margin: 8px auto;
+}
+
+.formayuda .textarea {
+	padding: 50px 50px;
+}
+
+.logo img {
+	width: 150;
+	height: 150px;
+	margin: 0 auto;
+	display: flex;
+}
+
+.saludo {
+	text-align: center;
+	padding-top: 20px;
+}
+
+.contenedor {
+	text-align: center;
+}
+
+.contenedor button {
+	width: 30%;
+	margin: auto;
+}
+
+footer {
+	text-align: center;
+	text-decoration: none;
+	font-weight: 100;
+	font-size: 12px;
 }
 
 .ratings {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  direction: rtl;
-  text-align: left;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	direction: rtl;
+	text-align: left;
 }
 
 .star {
-  position: relative;
-  line-height: 60px;
-  display: inline-block;
-  transition: color 0.2s ease;
-  color: lightgray;
+	position: relative;
+	line-height: 60px;
+	display: inline-block;
+	transition: color 0.2s ease;
+	color: lightgray;
 }
 
 .star:before {
-  content: '\2605';
-  width: 60px;
-  height: 60px;
-  font-size: 60px;
+	content: '\2605';
+	width: 60px;
+	height: 60px;
+	font-size: 60px;
 }
 
-.star:hover,
-.star.selected,
-.star:hover ~ .star,
-.star.selected ~ .star{
-  transition: color 0.8s ease;
-  color: gold;
+.star:hover, .star.selected, .star:hover ~ .star, .star.selected ~ .star
+	{
+	transition: color 0.8s ease;
+	color: gold;
 }
-  /*Media Querie*/
-  @media only screen and (min-width : 150px) and (max-width : 530px){
-    .login-form h3 {
-      text-align:center;
-      margin:0;
-    }
-    .login-button {
-      margin-bottom:10px;
-    }
-  }
-  
+/*Media Querie*/
+@media only screen and (min-width : 150px) and (max-width : 530px) {
+	.login-form h3 {
+		text-align: center;
+		margin: 0;
+	}
+	.login-button {
+		margin-bottom: 10px;
+	}
+}
+
 /*   css tabs */
-#tabs{
-width: 70%;
-margin: 20px auto auto auto;
+#tabs {
+	width: 70%;
+	margin: 20px auto auto auto;
 }
 
-.ui-tabs .ui-tabs-nav{
-background: white;
-border: none;
-height: 100%;
-justify-content: center;
+.ui-tabs .ui-tabs-nav {
+	background: white;
+	border: none;
+	height: 100%;
+	justify-content: center;
 }
 
 .ui-tabs .ui-tabs-nav li {
 	background: lightgray;
-	
 }
 
-.ui-tabs li.ui-tabs-active{
-background: orange;
-border: none;
-color: olive;
+.ui-tabs li.ui-tabs-active {
+	background: orange;
+	border: none;
+	color: olive;
 }
 
 /* Formulario clientes */
-.clientformayuda #nombre, #numero, #email, #direccion{
+.clientformayuda #nombre, #numero, #email, #direccion {
 	width: 50%;
 	margin: 2% auto auto auto;
 	height: 20px;
 }
 
-#comentarios{
-	width:50%;
-	height:150px;
+#comentarios {
+	width: 50%;
+	height: 150px;
 	margin: 2% auto auto auto;
 }
 
-#envio{
+#envio {
 	margin-top: 2%;
 	width: 20%;
-	}
+}
+
+#viewTableAs {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+#dialog p c:out {
+	margin-bottom: 5px;
+}
+
+#id3{
+	margin-top: 2px;
+}
+
+#logout{
+	margin: 10px 20px 0px 0px;
+	background: white;
+	border: none;
+}
