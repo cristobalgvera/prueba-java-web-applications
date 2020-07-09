@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,33 +33,32 @@ public class CustomerHome extends HttpServlet {
         String action = request.getParameter("submit-btn");
         Customer customer = (Customer) session.getAttribute("user");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("jsp/client-home.jsp");
-        Visit visit = null;
+        Visit lastVisit = null;
         Address address = null;
         Summary summary = null;
         Employee employee = null;
         Payment payment = null;
         int activeTab = 0;
-        int hiddenId = -1;
+        int hiddenId = request.getParameter("hidden-id") != null ? Integer.parseInt(request.getParameter("hidden-id")) : -1;
         switch (action) {
-            // TODO Set activeTabs when is needed
-            case "MOSTRAR VISITAS":
-                // TODO Test right path and parameter name
-                hiddenId = Integer.parseInt(request.getParameter("hidden-btn"));
-
-                visit = new EmployeeDAO().getVisit(hiddenId);
-                employee = (Employee) new EmployeeDAO().read(visit.getEmployeeId());
-                payment = new CustomerDAO(customer).getPayments().get(visit.getPaymentId());
-                break;
-            case "PAGAR":
-                hiddenId = Integer.parseInt(request.getParameter("hidden-btn"));
+            case "pay":
                 new CustomerDAO().pay(hiddenId);
                 List<Payment> payments = new CustomerDAO(customer).getPayments();
                 session.setAttribute("payments", payments);
+                payments = new CustomerDAO(customer).getDebts();
+                session.setAttribute("debts", payments);
+                activeTab = 3;
                 break;
-            case "SOLICITAR VISITA":
-                String activities = request.getParameter("hidden-btn");
-                List<String> listedActivities = Arrays.asList(activities.split(";;;;"));
-                visit = new CustomerDAO(customer).requestVisit(listedActivities, -90000); // Precio aleatorio entre |-X| y |-X| * 4
+            case "request-visit": // Tab 1
+                List<String> activities = new ArrayList<>();
+                activities.add("Diagnóstico participativo");
+                activities.add("Plantemiento de ideas");
+                activities.add("Ejecución");
+                activities.add("Seguimiento");
+                lastVisit = new CustomerDAO(customer).requestVisit(activities, -100000); // Precio aleatorio entre |-X| y |-X| * 4
+                List<Visit> visits = new CustomerDAO((Customer) customer).getVisits();
+                session.setAttribute("visits", visits);
+                activeTab = 1;
                 break;
             case "go-back":
                 requestDispatcher = request.getRequestDispatcher("jsp/client-home.jsp");
@@ -70,7 +70,7 @@ public class CustomerHome extends HttpServlet {
             default:
                 throw new IllegalStateException("Unexpected value: " + action);
         }
-        setAttributes(request, response, customer, requestDispatcher, visit, address, summary, payment, activeTab);
+        setAttributes(request, response, customer, requestDispatcher, lastVisit, address, summary, payment, activeTab);
     }
 
     protected static void setAttributes(HttpServletRequest request, HttpServletResponse response, Customer customer, RequestDispatcher requestDispatcher, Visit visit, Address address, Summary summary, Payment payment, int activeTab) throws ServletException, IOException {

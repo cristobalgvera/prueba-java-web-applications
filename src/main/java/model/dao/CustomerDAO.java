@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 public class CustomerDAO extends DAO {
-    Customer employee;
+    Customer customer;
     List<Customer> customers;
 
     public CustomerDAO() {
@@ -20,7 +20,7 @@ public class CustomerDAO extends DAO {
     }
 
     public CustomerDAO(Customer customer) {
-        this.employee = customer;
+        this.customer = customer;
         customers = new ArrayList<>();
     }
 
@@ -43,11 +43,11 @@ public class CustomerDAO extends DAO {
 
     private void setStatement() throws SQLException {
         preparedStatement = connection.getConnection().prepareStatement(sql);
-        preparedStatement.setString(1, employee.getName());
-        preparedStatement.setString(2, employee.getLastName());
-        preparedStatement.setString(3, employee.getEmail());
-        preparedStatement.setString(4, employee.getPassword());
-        preparedStatement.setString(5, employee.getPhoneNumber());
+        preparedStatement.setString(1, customer.getName());
+        preparedStatement.setString(2, customer.getLastName());
+        preparedStatement.setString(3, customer.getEmail());
+        preparedStatement.setString(4, customer.getPassword());
+        preparedStatement.setString(5, customer.getPhoneNumber());
     }
 
     @Override
@@ -115,9 +115,9 @@ public class CustomerDAO extends DAO {
                 "PASSWORD = ?, PHONE_NUMBER = ? WHERE CUSTOMER_ID = ?";
         try {
             setStatement();
-            preparedStatement.setInt(6, employee.getId());
+            preparedStatement.setInt(6, customer.getId());
             preparedStatement.executeUpdate();
-            return read(employee.getId());
+            return read(customer.getId());
         } catch (SQLException e) {
             System.out.println("Error while trying to update a registry: " + e.getMessage());
         }
@@ -164,7 +164,7 @@ public class CustomerDAO extends DAO {
             sql = "INSERT INTO VISITS (READY, CUSTOMERS_CUSTOMER_ID, \"date\", EMPLOYEES_EMPLOYEE_ID, ACTIVITIES, " +
                     "SUMMARIES_SUMMARY_ID, PAYMENTS_PAYMENT_ID) VALUES (0, ?, TO_DATE(?, 'dd/mm/yyyy HH24:mi:ss'), ?, ?, ?, ?)";
             preparedStatement = connection.getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, employee.getId());
+            preparedStatement.setInt(1, customer.getId());
             preparedStatement.setString(2, date);
             try {
                 preparedStatement.setInt(3, selectEmployee());
@@ -193,6 +193,24 @@ public class CustomerDAO extends DAO {
             closeConnection();
         }
         return visit;
+    }
+
+    public List<Visit> getVisits() {
+        List<Visit> visits = new ArrayList<>();
+        sql = "SELECT * FROM VISITS INNER JOIN CUSTOMERS C2 on C2.CUSTOMER_ID = VISITS.CUSTOMERS_CUSTOMER_ID WHERE CUSTOMER_ID = ?";
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, customer.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                visits.add(getVisit(resultSet));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting visit: " + e.getMessage());
+        } finally {
+            closeConnection();
+        }
+        return visits;
     }
 
     private Visit getVisit(ResultSet resultSet) throws SQLException {
@@ -231,7 +249,7 @@ public class CustomerDAO extends DAO {
                 "WHERE CUSTOMER_ID = ?";
         try {
             preparedStatement = connection.getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, employee.getId());
+            preparedStatement.setInt(1, customer.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 payments.add(new Payment(resultSet.getInt(1), resultSet.getInt(3),
@@ -241,6 +259,26 @@ public class CustomerDAO extends DAO {
             System.out.println("Error getting payments: " + e.getMessage());
         }
         return payments;
+    }
+
+    public List<Payment> getDebts() {
+        List<Payment> debts = new ArrayList<>();
+        sql = "SELECT * FROM PAYMENTS" +
+                "         INNER JOIN VISITS V on PAYMENTS.PAYMENT_ID = V.PAYMENTS_PAYMENT_ID" +
+                "         INNER JOIN CUSTOMERS C2 on V.CUSTOMERS_CUSTOMER_ID = C2.CUSTOMER_ID " +
+                "WHERE CUSTOMER_ID = ? AND PAYMENTS.READY = '0'";
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, customer.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                debts.add(new Payment(resultSet.getInt(1), resultSet.getInt(3),
+                        resultSet.getString(4).equals("1"), simple.format(resultSet.getTimestamp(2))));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting payments: " + e.getMessage());
+        }
+        return debts;
     }
 
     private int assignPrice(String date, int price) throws SQLException {
