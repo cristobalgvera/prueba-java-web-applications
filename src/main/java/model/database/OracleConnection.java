@@ -13,14 +13,18 @@ public class OracleConnection {
 
     private void connect() {
         String user = "NOMASACCIDENTABILIDAD";
-//        String user = "no_mas_accidentabilidad";
         String pass = "12345";
         String url = "jdbc:oracle:thin:@localhost:1521:XE";
         String driverPath = "oracle.jdbc.driver.OracleDriver";
         System.out.println("Connecting...");
         try {
             Class.forName(driverPath);
-            connection = DriverManager.getConnection(url, user, pass);
+            try {
+                connection = DriverManager.getConnection(url, user, pass);
+            } catch (SQLException throwables) {
+                user = "no_mas_accidentabilidad";
+                connection = DriverManager.getConnection(url, user, pass);
+            }
             System.out.println("Successful connection");
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println("Connection error: " + e.getMessage());

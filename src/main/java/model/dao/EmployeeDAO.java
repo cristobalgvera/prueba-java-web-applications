@@ -1,14 +1,8 @@
 package model.dao;
 
-import control.entities.Address;
-import control.entities.Employee;
-import control.entities.Summary;
-import control.entities.Visit;
+import control.entities.*;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -140,28 +134,38 @@ public class EmployeeDAO extends DAO {
         }
     }
 
+    public Visit getVisit(int visitId) {
+        return getVisits(-1, visitId).get(0);
+    }
+
     public List<Visit> pendingVisits() {
-        return getVisits(0);
+        return getVisits(0, -1);
     }
 
     public List<Visit> readyVisits() {
-        return getVisits(1);
+        return getVisits(1, -1);
     }
 
     public List<Visit> allVisits() {
-        return getVisits(-1);
+        return getVisits(-1, -1);
     }
 
-    private List<Visit> getVisits(int ready) {
+    private List<Visit> getVisits(int ready, int visitId) {
         List<Visit> visitList = new ArrayList<>();
-        if (ready != -1) {
+        if (ready != -1 && visitId == -1) {
             sql = "SELECT * FROM VISITS V INNER JOIN EMPLOYEES E on E.EMPLOYEE_ID = V.EMPLOYEES_EMPLOYEE_ID WHERE EMPLOYEE_ID = ? AND READY = " + ready;
+        } else if (ready == -1 && visitId > 0) {
+            sql = "SELECT * FROM VISITS WHERE VISIT_ID = ?";
         } else {
             sql = "SELECT * FROM VISITS V INNER JOIN EMPLOYEES E on E.EMPLOYEE_ID = V.EMPLOYEES_EMPLOYEE_ID WHERE EMPLOYEE_ID = ?";
         }
         try {
             preparedStatement = connection.getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, employee.getId());
+            if (visitId > 0) {
+                preparedStatement.setInt(1, visitId);
+            } else {
+                preparedStatement.setInt(1, employee.getId());
+            }
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Visit visit = new Visit();
@@ -187,6 +191,47 @@ public class EmployeeDAO extends DAO {
         return visitList;
     }
 
+    public Payment getPayment(int visitId) {
+        Payment payment = null;
+        sql = "SELECT * FROM PAYMENTS INNER JOIN VISITS V on PAYMENTS.PAYMENT_ID = V.PAYMENTS_PAYMENT_ID WHERE VISIT_ID = ?";
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, visitId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            payment = new Payment(resultSet.getInt(1), resultSet.getInt(3),
+                    resultSet.getString(4).equals("1"), simple.format(resultSet.getDate(2)));
+        } catch (SQLException e) {
+            System.out.println("Error getting payment: " + e.getMessage());
+        } finally {
+            closeConnection();
+        }
+        return payment;
+    }
+
+    public List<Payment> getPayments() {
+        List<Payment> payments = new ArrayList<>();
+        sql = "SELECT * " +
+                "FROM PAYMENTS" +
+                "         INNER JOIN VISITS V on PAYMENTS.PAYMENT_ID = V.PAYMENTS_PAYMENT_ID" +
+                "         INNER JOIN EMPLOYEES E on V.EMPLOYEES_EMPLOYEE_ID = E.EMPLOYEE_ID " +
+                "WHERE EMPLOYEE_ID = ?";
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, employee.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                payments.add(new Payment(resultSet.getInt(1), resultSet.getInt(3),
+                        resultSet.getString(4).equals("1"), simple.format(resultSet.getDate(2))));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting payments: " + e.getMessage());
+        } finally {
+            closeConnection();
+        }
+        return payments;
+    }
+
     public void endVisit(int visitId) {
         sql = "UPDATE VISITS SET READY = 1 WHERE VISIT_ID = ?";
         try {
@@ -200,7 +245,7 @@ public class EmployeeDAO extends DAO {
         }
     }
 
-    public Summary getSummary(int visitId) throws SQLException {
+    public Summary getSummary(int visitId) {
         sql = "SELECT SUMMARIES_SUMMARY_ID FROM VISITS WHERE VISIT_ID = ?";
         Summary summary = null;
         try {
@@ -239,7 +284,7 @@ public class EmployeeDAO extends DAO {
         }
     }
 
-    public List<String> getActivities(int visitId) throws SQLException {
+    public List<String> getActivities(int visitId) {
         sql = "SELECT ACTIVITIES FROM VISITS WHERE VISIT_ID = ?";
         List<String> activities = null;
         try {
@@ -292,5 +337,22 @@ public class EmployeeDAO extends DAO {
             closeConnection();
         }
         return address;
+    }
+
+    public Customer getVisitsCustomer(int visitId) {
+        Customer customer = null;
+        sql = "SELECT CUSTOMER_ID FROM CUSTOMERS C2 INNER JOIN VISITS V on C2.CUSTOMER_ID = V.CUSTOMERS_CUSTOMER_ID WHERE VISIT_ID = ?";
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, visitId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            int customerId = resultSet.getInt(1);
+            closeConnection();
+            customer = (Customer) new CustomerDAO().read(customerId);
+        } catch (SQLException e) {
+            System.out.println("Error getting visit's customer: " + e.getMessage());
+        }
+        return customer;
     }
 }

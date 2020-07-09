@@ -1,35 +1,31 @@
 package model.dao;
 
-import control.entities.Customer;
-import control.entities.Payment;
-import control.entities.Visit;
+import control.entities.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class CustomerDAO extends DAO {
-    Customer customer;
+    Customer employee;
     List<Customer> customers;
-
 
     public CustomerDAO() {
         customers = new ArrayList<>();
     }
 
     public CustomerDAO(Customer customer) {
-        this.customer = customer;
+        this.employee = customer;
         customers = new ArrayList<>();
     }
 
     @Override
-    public Object create() throws SQLException {
+    public Object create() {
         sql = "INSERT INTO CUSTOMERS (NAME, LAST_NAME, EMAIL, PASSWORD, PHONE_NUMBER) VALUES (?,?,?,?,?)";
         try {
             setStatement();
@@ -47,11 +43,11 @@ public class CustomerDAO extends DAO {
 
     private void setStatement() throws SQLException {
         preparedStatement = connection.getConnection().prepareStatement(sql);
-        preparedStatement.setString(1, customer.getName());
-        preparedStatement.setString(2, customer.getLastName());
-        preparedStatement.setString(3, customer.getEmail());
-        preparedStatement.setString(4, customer.getPassword());
-        preparedStatement.setString(5, customer.getPhoneNumber());
+        preparedStatement.setString(1, employee.getName());
+        preparedStatement.setString(2, employee.getLastName());
+        preparedStatement.setString(3, employee.getEmail());
+        preparedStatement.setString(4, employee.getPassword());
+        preparedStatement.setString(5, employee.getPhoneNumber());
     }
 
     @Override
@@ -98,14 +94,13 @@ public class CustomerDAO extends DAO {
     }
 
     @Override
-    public Object exists(String email, String password) throws SQLException {
+    public Object exists(String email, String password) {
         sql = "SELECT * FROM CUSTOMERS WHERE EMAIL = ? AND PASSWORD = ?";
-        ResultSet resultSet = null;
         try {
             preparedStatement = connection.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
-            resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             return read(resultSet.getInt(1));
         } catch (SQLException e) {
@@ -120,9 +115,9 @@ public class CustomerDAO extends DAO {
                 "PASSWORD = ?, PHONE_NUMBER = ? WHERE CUSTOMER_ID = ?";
         try {
             setStatement();
-            preparedStatement.setInt(6, customer.getId());
+            preparedStatement.setInt(6, employee.getId());
             preparedStatement.executeUpdate();
-            return read(customer.getId());
+            return read(employee.getId());
         } catch (SQLException e) {
             System.out.println("Error while trying to update a registry: " + e.getMessage());
         }
@@ -143,16 +138,33 @@ public class CustomerDAO extends DAO {
         }
     }
 
+    public void setAddress(Address address) {
+        sql = "INSERT INTO ADDRESSES (COUNTRY, CITY, STREET, \"number\", BLOCK, CUSTOMERS_CUSTOMER_ID) " +
+                "VALUES (?,?,?,?,?,?)";
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, address.getCountry());
+            preparedStatement.setString(2, address.getCity());
+            preparedStatement.setString(3, address.getStreet());
+            preparedStatement.setInt(4, address.getNumber());
+            preparedStatement.setString(5, address.getBlock());
+            preparedStatement.setInt(6, address.getCustomerId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error setting address: " + e.getMessage());
+        }
+    }
+
     public Visit requestVisit(List<String> activities, int price) {
-        DateFormat simple = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String date = simple.format(new Date().getTime());
+        // Random date between today and six months
+        String date = simple.format(new Date().getTime() + new Date((Math.abs(new Random().nextLong()) % (1L * 365 * (24 / 2) * 60 * 60 * 1000))).getTime());
         Visit visit = null;
         try {
             int summary_id = createSummary(date);
             sql = "INSERT INTO VISITS (READY, CUSTOMERS_CUSTOMER_ID, \"date\", EMPLOYEES_EMPLOYEE_ID, ACTIVITIES, " +
                     "SUMMARIES_SUMMARY_ID, PAYMENTS_PAYMENT_ID) VALUES (0, ?, TO_DATE(?, 'dd/mm/yyyy HH24:mi:ss'), ?, ?, ?, ?)";
             preparedStatement = connection.getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, customer.getId());
+            preparedStatement.setInt(1, employee.getId());
             preparedStatement.setString(2, date);
             try {
                 preparedStatement.setInt(3, selectEmployee());
@@ -185,7 +197,6 @@ public class CustomerDAO extends DAO {
 
     private Visit getVisit(ResultSet resultSet) throws SQLException {
         Visit visit = new Visit();
-        DateFormat simple = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         visit.setId(resultSet.getInt(1));
         visit.setReady(resultSet.getString(2).equals("1")); // String (Char) to a boolean
         visit.setCustomerId(resultSet.getInt(3));
@@ -198,10 +209,12 @@ public class CustomerDAO extends DAO {
     }
 
     public void pay(int paymentId) {
-        sql = "UPDATE PAYMENTS SET READY = 1 WHERE PAYMENT_ID = ?";
+        String date = simple.format(new Date().getTime());
+        sql = "UPDATE PAYMENTS SET READY = 1, \"date\" = TO_DATE(?, 'dd/mm/yyyy HH24:mi:ss') WHERE PAYMENT_ID = ?";
         try {
             preparedStatement = connection.getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, paymentId);
+            preparedStatement.setString(1, date);
+            preparedStatement.setInt(2, paymentId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error while paying: " + e.getMessage());
@@ -218,7 +231,7 @@ public class CustomerDAO extends DAO {
                 "WHERE CUSTOMER_ID = ?";
         try {
             preparedStatement = connection.getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, customer.getId());
+            preparedStatement.setInt(1, employee.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 payments.add(new Payment(resultSet.getInt(1), resultSet.getInt(3),
@@ -237,7 +250,11 @@ public class CustomerDAO extends DAO {
         try {
             PreparedStatement preparedStatement1 = connection.getConnection().prepareStatement(sql1);
             preparedStatement1.setString(1, date);
-            preparedStatement1.setInt(2, price);
+            if (price > -1) {
+                preparedStatement1.setInt(2, price);
+            } else {
+                preparedStatement1.setInt(2, (int) Math.floor(Math.random() * (price * 3 + 1) + (Math.abs(price) * 4)));
+            }
             preparedStatement1.executeUpdate();
             preparedStatement1.close();
             sql1 = "SELECT MAX(PAYMENT_ID) FROM PAYMENTS";
@@ -291,5 +308,22 @@ public class CustomerDAO extends DAO {
             System.out.println("Error creating empty summary: " + e.getMessage());
         }
         return summaryId;
+    }
+
+    public Employee getVisitsEmployee(int visitId) {
+        Employee employee = null;
+        sql = "SELECT * FROM EMPLOYEES E INNER JOIN VISITS V on E.EMPLOYEE_ID = V.EMPLOYEES_EMPLOYEE_ID WHERE VISIT_ID = ?";
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, visitId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            int employeeId = resultSet.getInt(1);
+            closeConnection();
+            employee = (Employee) new EmployeeDAO().read(employeeId);
+        } catch (SQLException e) {
+            System.out.println("Error getting visit's customer: " + e.getMessage());
+        }
+        return employee;
     }
 }
