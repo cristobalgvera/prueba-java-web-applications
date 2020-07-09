@@ -348,7 +348,7 @@ public class CustomerDAO extends DAO {
         return summaryId;
     }
 
-    public Employee getVisitsEmployee(int visitId) {
+    public Employee getVisitsEmployee(int visitId, int requestType) {
         Employee employee = null;
         sql = "SELECT * FROM EMPLOYEES E INNER JOIN VISITS V on E.EMPLOYEE_ID = V.EMPLOYEES_EMPLOYEE_ID WHERE VISIT_ID = ?";
         try {
@@ -357,11 +357,21 @@ public class CustomerDAO extends DAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             int employeeId = resultSet.getInt(1);
-            closeConnection();
+            if (!(requestType == -1)) {
+                closeConnection();
+            }
             employee = (Employee) new EmployeeDAO().read(employeeId);
         } catch (SQLException e) {
-            System.out.println("Error getting visit's customer: " + e.getMessage());
+            System.out.println("Error getting visit's employee: " + e.getMessage());
         }
         return employee;
+    }
+
+    public List<Employee> getVisitsEmployees(List<Visit> visits) {
+        List<Employee> employees = new ArrayList<>();
+        for (Visit visit: visits) {
+            employees.add(getVisitsEmployee(visit.getId(), -1));
+        }
+        return employees;
     }
 }

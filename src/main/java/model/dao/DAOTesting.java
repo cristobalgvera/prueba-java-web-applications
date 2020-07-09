@@ -103,7 +103,7 @@ public class DAOTesting {
 
     private static void empleadoVisita(int visitId) {
         prueba("EMPLEADO VISITA ID " + visitId);
-        Employee employee = new CustomerDAO().getVisitsEmployee(visitId);
+        Employee employee = new CustomerDAO().getVisitsEmployee(visitId, 1);
         System.out.println("ID: " + employee.getId() + "\tNombre: " + employee.getName());
     }
 

@@ -38,26 +38,32 @@ public class CustomerHome extends HttpServlet {
         Summary summary = null;
         Employee employee = null;
         Payment payment = null;
+        List<Payment> payments = new ArrayList<>();
         int activeTab = 0;
         int hiddenId = request.getParameter("hidden-id") != null ? Integer.parseInt(request.getParameter("hidden-id")) : -1;
         switch (action) {
-            case "pay":
+            case "pay": // Tab 2
                 new CustomerDAO().pay(hiddenId);
-                List<Payment> payments = new CustomerDAO(customer).getPayments();
+                payments = new CustomerDAO(customer).getPayments();
                 session.setAttribute("payments", payments);
                 payments = new CustomerDAO(customer).getDebts();
                 session.setAttribute("debts", payments);
                 activeTab = 3;
                 break;
-            case "request-visit": // Tab 1
+            case "request-visit": // Tab 0
                 List<String> activities = new ArrayList<>();
                 activities.add("Diagnóstico participativo");
                 activities.add("Plantemiento de ideas");
                 activities.add("Ejecución");
                 activities.add("Seguimiento");
                 lastVisit = new CustomerDAO(customer).requestVisit(activities, -100000); // Precio aleatorio entre |-X| y |-X| * 4
+                payments = new CustomerDAO((Customer) customer).getPayments();
                 List<Visit> visits = new CustomerDAO((Customer) customer).getVisits();
                 session.setAttribute("visits", visits);
+                session.setAttribute("payments", payments);
+                payments = new CustomerDAO((Customer) customer).getDebts();
+                session.setAttribute("debts", payments);
+                session.setAttribute("employees", new CustomerDAO().getVisitsEmployees(visits));
                 activeTab = 1;
                 break;
             case "go-back":
@@ -83,12 +89,3 @@ public class CustomerHome extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 }
-
-
-/* Petición MOSTRAR VISITAS
-Número de asesoría:
- Nº de colaborador:
- Fecha de realización:
- Nº confirmación de pago:
- Actividades realizadas:
- */

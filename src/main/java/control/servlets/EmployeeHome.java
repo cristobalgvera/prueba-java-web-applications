@@ -33,8 +33,11 @@ public class EmployeeHome extends HttpServlet {
         Visit visit = null;
         Address address = null;
         Summary summary = null;
+        Summary summaryUpdate = null;
         Customer customer = null;
         Payment payment = null;
+        String description = null;
+        int rating = 1;
         int activeTab = 0;
         int hiddenId = request.getParameter("idvisithidden") != null ? Integer.parseInt(request.getParameter("idvisithidden")) : -1;
         switch (action) {
@@ -58,15 +61,23 @@ public class EmployeeHome extends HttpServlet {
                 requestDispatcher = request.getRequestDispatcher("jsp/employee-home.jsp");
                 visit = new EmployeeDAO().getVisit(hiddenId);
                 summary = new EmployeeDAO().getSummary(visit.getId());
-                String description = request.getParameter("description");
-                int rating = Integer.parseInt(request.getParameter("rating"));
-                Summary summaryUpdate = new Summary(summary.getId(), rating, description, "");
+                description = request.getParameter("description");
+                rating = Integer.parseInt(request.getParameter("rating"));
+                summaryUpdate = new Summary(summary.getId(), rating, description, "");
                 new EmployeeDAO().setSummary(summaryUpdate);
                 break;
             case "terminate":
-                requestDispatcher = request.getRequestDispatcher("jsp/employee-home");
+                requestDispatcher = request.getRequestDispatcher("jsp/employee-home.jsp");
                 visit = new EmployeeDAO().getVisit(hiddenId);
+                summary = new EmployeeDAO().getSummary(visit.getId());
+                description = request.getParameter("description");
+                rating = Integer.parseInt(request.getParameter("rating"));
+                summaryUpdate = new Summary(summary.getId(), rating, description, "");
+                new EmployeeDAO().setSummary(summaryUpdate);
                 new EmployeeDAO().endVisit(visit.getId());
+                session.setAttribute("payments", new EmployeeDAO((Employee) employee).getPayments());
+                session.setAttribute("allVisits", new EmployeeDAO((Employee) employee).allVisits());
+                session.setAttribute("pendingVisits", new EmployeeDAO((Employee) employee).pendingVisits());
                 break;
             case "logout":
                 requestDispatcher = request.getRequestDispatcher("index.jsp");
