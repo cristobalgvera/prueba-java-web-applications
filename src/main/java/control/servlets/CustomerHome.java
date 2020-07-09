@@ -31,14 +31,14 @@ public class CustomerHome extends HttpServlet {
         HttpSession session = request.getSession();
         String action = request.getParameter("submit-btn");
         Customer customer = (Customer) session.getAttribute("user");
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("jsp/employee-home.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("jsp/client-home.jsp");
         Visit visit = null;
         Address address = null;
         Summary summary = null;
         Employee employee = null;
         Payment payment = null;
         int activeTab = 0;
-        int hiddenId = Integer.parseInt(null);
+        int hiddenId = -1;
         switch (action) {
             // TODO Set activeTabs when is needed
             case "MOSTRAR VISITAS":
@@ -59,6 +59,9 @@ public class CustomerHome extends HttpServlet {
                 String activities = request.getParameter("hidden-btn");
                 List<String> listedActivities = Arrays.asList(activities.split(";;;;"));
                 visit = new CustomerDAO(customer).requestVisit(listedActivities, -90000); // Precio aleatorio entre |-X| y |-X| * 4
+                break;
+            case "go-back":
+                requestDispatcher = request.getRequestDispatcher("jsp/client-home.jsp");
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + action);

@@ -36,26 +36,43 @@ public class EmployeeHome extends HttpServlet {
         Customer customer = null;
         Payment payment = null;
         int activeTab = 0;
-        int hiddenId = -1;
+        int hiddenId = request.getParameter("idvisithidden") != null ? Integer.parseInt(request.getParameter("idvisithidden")) : -1;
         switch (action) {
             case "finish":
                 requestDispatcher = request.getRequestDispatcher("jsp/employee-home-finish.jsp");
-                hiddenId = Integer.parseInt(request.getParameter("idvisithidden"));
                 visit = new EmployeeDAO().getVisit(hiddenId);
                 summary = new EmployeeDAO().getSummary(visit.getId());
                 break;
             case "details":
                 requestDispatcher = request.getRequestDispatcher("jsp/employee-home-details.jsp");
-                hiddenId = Integer.parseInt(request.getParameter("idvisithidden"));
                 visit = new EmployeeDAO().getVisit(hiddenId);
                 address = new EmployeeDAO().getAddress(visit.getId());
                 summary = new EmployeeDAO().getSummary(visit.getId());
                 customer = new EmployeeDAO().getVisitsCustomer(visit.getId());
                 payment = new EmployeeDAO().getPayment(visit.getId());
                 break;
+            case "go-back":
+                requestDispatcher = request.getRequestDispatcher("jsp/employee-home.jsp");
+                break;
+            case "save":
+                requestDispatcher = request.getRequestDispatcher("jsp/employee-home.jsp");
+                visit = new EmployeeDAO().getVisit(hiddenId);
+                summary = new EmployeeDAO().getSummary(visit.getId());
+                String description = request.getParameter("description");
+                int rating = Integer.parseInt(request.getParameter("rating"));
+                Summary summaryUpdate = new Summary(summary.getId(), rating, description, "");
+                new EmployeeDAO().setSummary(summaryUpdate);
+                break;
+            case "terminate":
+                // TODO Complete terminate section
+                requestDispatcher = request.getRequestDispatcher("jsp/employee-home");
+                visit = new EmployeeDAO().getVisit(hiddenId);
+                new EmployeeDAO().endVisit(visit.getId());
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + action);
         }
+        System.out.println(hiddenId);
         CustomerHome.setAttributes(request, response, customer, requestDispatcher, visit, address, summary, payment, activeTab);
     }
 }
