@@ -19,7 +19,7 @@
 
 <hr>
 
-## Uso de la aplicación web
+## Implementación de la aplicación web
 
 ### Oracle SQL DB
 - Nombre: "no_mas_accidentabilidad" o "NOMASACCIDENTABILIDAD".
